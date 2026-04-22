@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Parkour - Associazione di Promozione Sociale</title>
+<meta name="description" content="Parkour è una associazione di promozione sociale con sede a Torino. Ci occupiamo di musica dal vivo e organizzazione di eventi culturali.">
+<meta name="robots" content="index, follow">
+<meta name="author" content="Parkour A.p.s.">
+
+<!-- Favicon -->
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<meta name="theme-color" content="#0a0a0a">
+
+<!-- Open Graph / Facebook / WhatsApp / LinkedIn -->
+<meta property="og:type" content="website">
+<meta property="og:locale" content="it_IT">
+<meta property="og:site_name" content="Parkour A.p.s.">
+<meta property="og:title" content="Parkour - Associazione di Promozione Sociale">
+<meta property="og:description" content="Parkour è una associazione di promozione sociale con sede a Torino. Ci occupiamo di musica dal vivo e organizzazione di eventi culturali.">
+<meta property="og:image" content="parkour-preview.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Parkour - Associazione di Promozione Sociale">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Parkour - Associazione di Promozione Sociale">
+<meta name="twitter:description" content="Parkour è una associazione di promozione sociale con sede a Torino. Ci occupiamo di musica dal vivo e organizzazione di eventi culturali.">
+<meta name="twitter:image" content="parkour-preview.png">
+
+<!-- Dati strutturati per Google -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Parkour A.p.s.",
+  "alternateName": "Parkour Associazione di Promozione Sociale",
+  "description": "Associazione di promozione sociale con sede a Torino, attiva nell'organizzazione di eventi culturali e musica dal vivo.",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Via Lancia 138/2",
+    "postalCode": "10141",
+    "addressLocality": "Torino",
+    "addressCountry": "IT"
+  },
+  "taxID": "97910760012"
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=JetBrains+Mono:wght@400;700&family=Archivo:wght@400;600;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0a;
+    --fg: #f5f5f1;
+    --accent: #ff3b1f;
+    --muted: #8a8a85;
+    --grid: rgba(245, 245, 241, 0.06);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    height: 100%;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: 'Archivo', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* ============ BACKGROUND VIDEO ============ */
+  .video-wrap {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    background: #000;
+  }
+
+  .video-wrap iframe {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    /* Trucco per coprire tutto lo schermo mantenendo 16:9 */
+    width: 100vw;
+    height: 56.25vw; /* 16:9 */
+    min-height: 100vh;
+    min-width: 177.77vh; /* 16:9 */
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    border: 0;
+  }
+
+  /* Overlay scuro sopra il video per leggibilità */
+  .video-wrap::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at center, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.85) 100%),
+      linear-gradient(180deg, rgba(10,10,10,0.6) 0%, rgba(10,10,10,0.3) 40%, rgba(10,10,10,0.9) 100%);
+    z-index: 1;
+  }
+
+  /* Grain overlay */
+  .grain {
+    position: fixed;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    opacity: 0.15;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.8'/></svg>");
+  }
+
+  /* Griglia sottile */
+  .grid-lines {
+    position: fixed;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 80px 80px;
+  }
+
+  /* ============ HEADER ============ */
+  header {
+    position: relative;
+    z-index: 10;
+    padding: 24px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    animation: fadeIn 1.2s ease 0.3s both;
+  }
+
+  header .brand-mark {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--fg);
+  }
+
+  header .brand-mark .dot {
+    width: 8px;
+    height: 8px;
+    background: var(--accent);
+    border-radius: 50%;
+    box-shadow: 0 0 12px var(--accent);
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  nav ul {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+
+  nav a {
+    color: var(--fg);
+    text-decoration: none;
+    opacity: 0.7;
+    transition: opacity 0.2s, color 0.2s;
+    position: relative;
+  }
+
+  nav a:hover {
+    opacity: 1;
+    color: var(--accent);
+  }
+
+  nav a.active { opacity: 1; }
+  nav a.active::before {
+    content: "";
+    position: absolute;
+    left: -14px;
+    top: 50%;
+    width: 6px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  /* ============ HERO ============ */
+  .hero {
+    position: relative;
+    z-index: 5;
+    min-height: calc(100vh - 72px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 80px 40px 140px;
+    text-align: center;
+  }
+
+  .tag-top {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 32px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    animation: fadeIn 1s ease 0.6s both;
+  }
+
+  .tag-top::before, .tag-top::after {
+    content: "";
+    width: 40px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  /* LOGO PARKOUR — il pezzo forte */
+  .logo {
+    font-family: 'Anton', sans-serif;
+    font-weight: 900;
+    font-size: clamp(80px, 22vw, 340px);
+    line-height: 0.85;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    color: var(--fg);
+    position: relative;
+    text-shadow:
+      0 0 40px rgba(0,0,0,0.5),
+      0 0 80px rgba(0,0,0,0.3);
+    animation: logoReveal 1.4s cubic-bezier(0.19, 1, 0.22, 1) 0.2s both;
+  }
+
+  /* Effetto sovrapposizione rossa */
+  .logo::before {
+    content: "PARKOUR";
+    position: absolute;
+    top: 0;
+    left: 4px;
+    color: var(--accent);
+    mix-blend-mode: screen;
+    opacity: 0.55;
+    z-index: -1;
+    transform: translateX(2px);
+    animation: glitch 4s ease-in-out infinite;
+  }
+
+  .subtitle {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 900;
+    font-size: clamp(13px, 1.1vw, 16px);
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: #ff8a1f;
+    margin-top: 36px;
+    animation: fadeIn 1s ease 1s both;
+  }
+
+  .subtitle span {
+    color: var(--accent);
+    font-weight: 900;
+  }
+
+  /* ============ AVVISO ASSEMBLEA ============ */
+  .notice {
+    max-width: 640px;
+    width: 100%;
+    margin-top: 56px;
+    padding: 24px 28px;
+    border: 1px solid rgba(245, 245, 241, 0.18);
+    border-left: 3px solid var(--accent);
+    background: rgba(10, 10, 10, 0.55);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    text-align: left;
+    animation: fadeIn 1s ease 1.3s both;
+  }
+
+  .notice-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .notice-label::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+  }
+
+  .notice-text {
+    font-family: 'Archivo', sans-serif;
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--fg);
+    opacity: 0.92;
+  }
+
+  .notice-text strong {
+    color: var(--fg);
+    font-weight: 700;
+  }
+
+  .cta-row {
+    display: flex;
+    gap: 16px;
+    margin-top: 56px;
+    animation: fadeIn 1s ease 1.3s both;
+  }
+
+  .btn {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 16px 32px;
+    border: 1px solid var(--fg);
+    background: transparent;
+    color: var(--fg);
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn.primary {
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .btn:hover {
+    background: var(--fg);
+    color: var(--bg);
+    border-color: var(--fg);
+  }
+
+  .btn.primary:hover {
+    background: var(--fg);
+    color: var(--accent);
+  }
+
+  /* ============ BOTTOM UI ============ */
+  .hud-bottom {
+    position: fixed;
+    bottom: 24px;
+    left: 40px;
+    right: 40px;
+    z-index: 10;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    animation: fadeIn 1s ease 1.6s both;
+  }
+
+  .hud-bottom .left, .hud-bottom .right {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .hud-bottom .right { text-align: right; }
+
+  .hud-bottom .value {
+    color: var(--fg);
+  }
+
+  /* Corner brackets */
+  .corner {
+    position: fixed;
+    width: 20px;
+    height: 20px;
+    border: 1px solid var(--fg);
+    opacity: 0.5;
+    z-index: 10;
+  }
+  .corner.tl { top: 12px; left: 12px; border-right: none; border-bottom: none; }
+  .corner.tr { top: 12px; right: 12px; border-left: none; border-bottom: none; }
+  .corner.bl { bottom: 12px; left: 12px; border-right: none; border-top: none; }
+  .corner.br { bottom: 12px; right: 12px; border-left: none; border-top: none; }
+
+  /* ============ ANIMATIONS ============ */
+  @keyframes logoReveal {
+    0% { opacity: 0; transform: translateY(60px) scale(0.95); filter: blur(10px); }
+    100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.3); }
+  }
+
+  @keyframes glitch {
+    0%, 92%, 100% { transform: translateX(2px); opacity: 0.55; }
+    93% { transform: translateX(-3px); opacity: 0.8; }
+    94% { transform: translateX(4px); opacity: 0.3; }
+    95% { transform: translateX(-1px); opacity: 0.7; }
+  }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width: 768px) {
+    header { padding: 16px 20px; }
+    nav ul { gap: 16px; }
+    nav a { font-size: 10px; }
+    .hero { padding: 0 20px; }
+    .hud-bottom { left: 20px; right: 20px; font-size: 9px; }
+    .cta-row { flex-direction: column; width: 100%; max-width: 280px; }
+    .btn { text-align: center; }
+    .subtitle { letter-spacing: 0.2em; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- Video di sfondo -->
+  <div class="video-wrap">
+    <iframe
+      src="https://www.youtube.com/embed/z6DY5GbrH5I?autoplay=1&mute=1&loop=1&playlist=z6DY5GbrH5I&controls=0&showinfo=0&modestbranding=1&rel=0&iv_load_policy=3&playsinline=1&disablekb=1"
+      title="Background video"
+      frameborder="0"
+      allow="autoplay; encrypted-media"
+      allowfullscreen>
+    </iframe>
+  </div>
+
+  <div class="grain"></div>
+  <div class="grid-lines"></div>
+
+  <!-- Corner brackets per estetica HUD -->
+  <div class="corner tl"></div>
+  <div class="corner tr"></div>
+  <div class="corner bl"></div>
+  <div class="corner br"></div>
+
+  <!-- Header -->
+  <header>
+    <div class="brand-mark">
+      <span class="dot"></span>
+      <span>LIVE · REC 001</span>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <h1 class="logo">PARKOUR</h1>
+
+    <p class="subtitle">Associazione di Promozione Sociale</p>
+
+    <div class="notice">
+      <div class="notice-label">Avviso ai Soci</div>
+      <p class="notice-text">È convocata l'Assemblea Ordinaria dei Soci di Parkour A.p.s. per Domenica 26 aprile 2026 alle ore 01:00 in prima convocazione e, occorrendo, <strong>alle ore 18:00 di giorno 27 aprile 2026</strong> in seconda convocazione, presso la sede legale.</p>
+    </div>
+  </section>
+
+  <!-- HUD bottom -->
+  <div class="hud-bottom">
+    <div class="left">
+      <div class="value">Parkour A.p.s.</div>
+      <div>Via Lancia 138/2 · 10141 Torino</div>
+      <div>CF 97910760012</div>
+    </div>
+  </div>
+
+</body>
+</html>
