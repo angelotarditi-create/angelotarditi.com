@@ -21,7 +21,7 @@
   <meta name="twitter:description" content="Account & Project Manager · Creative Strategist · Cofondatore di Eskimo Creative Agency" />
   <meta name="twitter:image" content="og-image.jpg" />
 
-  <!-- Favicon (SVG + fallback) -->
+  <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link rel="alternate icon" href="favicon.ico" />
   <link rel="apple-touch-icon" href="apple-touch-icon.png" />
@@ -39,13 +39,18 @@
     :root {
       --paper:   #efeadc;      /* off-white caldo */
       --ink:     #111112;      /* nero inchiostro */
-      --ink-dim: #3a3a3c;
+      --ink-dim: #2b2b2e;      /* più scuro per i metadati */
       --accent:  #d94f1f;      /* terracotta accent */
       --line:    rgba(17, 17, 18, 0.22);
-      --overlay: rgba(10, 10, 12, 0.45);
       --gutter:  clamp(18px, 3vw, 36px);
       --stroke:  1.2px;
       --ease:    cubic-bezier(.22, 1, .36, 1);
+
+      /* safe area per iOS notch / bordi arrotondati */
+      --safe-t: env(safe-area-inset-top,    0px);
+      --safe-r: env(safe-area-inset-right,  0px);
+      --safe-b: env(safe-area-inset-bottom, 0px);
+      --safe-l: env(safe-area-inset-left,   0px);
     }
 
     html, body {
@@ -56,6 +61,8 @@
       overflow: hidden;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+      /* FIX mobile: rimuove flash blu/grigio su tap */
+      -webkit-tap-highlight-color: transparent;
     }
 
     body {
@@ -87,7 +94,7 @@
       opacity: 1;
       transform: scale(1);
     }
-    .stage::after { /* overlay per leggibilità */
+    .stage::after {
       content: "";
       position: absolute;
       inset: 0;
@@ -99,7 +106,7 @@
     }
     body.is-hot .stage::after { opacity: 1; }
 
-    /* Subtle paper grain on default state */
+    /* Paper grain sul default */
     body::before {
       content: "";
       position: fixed;
@@ -121,38 +128,37 @@
       z-index: 2;
       min-height: 100svh;
       min-height: 100vh;
-      padding: calc(var(--gutter) * 2) var(--gutter);
+      padding:
+        calc(var(--gutter) * 2 + var(--safe-t))
+        calc(var(--gutter) + var(--safe-r))
+        calc(var(--gutter) * 2 + var(--safe-b))
+        calc(var(--gutter) + var(--safe-l));
       display: grid;
       grid-template-rows: auto 1fr auto;
       gap: 1.25rem;
     }
 
+    /* ---------- Top meta (left) ---------- */
     header.meta {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 2rem;
       font-family: "Instrument Sans", sans-serif;
       font-size: clamp(11px, 1.05vw, 13px);
-      letter-spacing: .08em;
+      font-weight: 500;
+      letter-spacing: .1em;
       text-transform: uppercase;
       color: var(--ink);
-      mix-blend-mode: difference;
-      /* difference con bianco → rende il testo leggibile su ogni sfondo */
+      transition: color .5s var(--ease);
     }
-    header.meta .left, header.meta .right {
-      color: #fff; /* difference con sfondo reale */
-    }
-    header.meta span { opacity: .9; }
     header.meta em {
-      font-style: normal;
       font-family: "Fraunces", serif;
       font-style: italic;
       font-weight: 400;
       text-transform: none;
       letter-spacing: 0;
       font-size: 1.15em;
-      opacity: .8;
+      opacity: .72;
+    }
+    body.is-hot header.meta {
+      color: rgba(255,255,255,0.85);
     }
 
     /* ---------- Hero (the name) ---------- */
@@ -171,56 +177,55 @@
       line-height: .86;
       letter-spacing: -0.035em;
       color: var(--ink);
+      /* FIX mobile: blocca la selezione testo su tap lungo */
       user-select: none;
-      cursor: default;
+      -webkit-user-select: none;
+      -webkit-touch-callout: none;
       transition: color .5s var(--ease);
-      /* prevent awkward text-wrap */
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       gap: 0;
     }
 
-    .name .word {
-      display: inline-flex;
-      flex-wrap: nowrap;
-    }
-    .name .sp {
-      width: 0.38ch;
-      display: inline-block;
-    }
+    .name .word { display: inline-flex; flex-wrap: nowrap; }
+    .name .sp   { width: 0.38ch; display: inline-block; }
 
     .name .ltr {
       display: inline-block;
       position: relative;
+      /* FIX: NIENTE cursor pointer, non sono "cliccabili" visivamente */
+      cursor: default;
+      /* FIX mobile: elimina delay 300ms + blocca pinch-zoom sulle lettere */
+      touch-action: manipulation;
       transition:
         color .35s var(--ease),
         -webkit-text-stroke-color .35s var(--ease),
+        -webkit-text-stroke-width .35s var(--ease),
         transform .5s var(--ease);
-      cursor: pointer;
     }
 
-    /* Outline state: applied to all letters when any is active */
+    /* DESKTOP — hover: la lettera diventa arancione */
+    @media (hover: hover) {
+      .name .ltr:hover { color: var(--accent); }
+    }
+
+    /* Stato con immagine attiva: tutte le lettere outline bianco */
     body.is-hot .name .ltr {
       color: transparent;
       -webkit-text-stroke: var(--stroke) rgba(255,255,255,0.9);
-      text-stroke: var(--stroke) rgba(255,255,255,0.9);
     }
 
-    /* The active letter itself: slightly highlighted */
+    /* La lettera attiva è arancione pieno */
     body.is-hot .name .ltr.is-active {
-      -webkit-text-stroke-color: #fff;
-      color: rgba(255,255,255,0.08);
-      transform: translateY(-0.012em);
+      color: var(--accent);
+      -webkit-text-stroke-width: 0;
     }
 
-    /* Hover hint when nothing is active yet (desktop) */
     @media (hover: hover) {
-      .name .ltr:hover {
-        color: var(--accent);
-      }
       body.is-hot .name .ltr:hover {
-        color: rgba(255,255,255,0.15);
+        color: var(--accent);
+        -webkit-text-stroke-width: 0;
       }
     }
 
@@ -246,7 +251,7 @@
       margin: 0;
       max-width: 52rem;
       line-height: 1.45;
-      transition: opacity .45s var(--ease), transform .45s var(--ease);
+      transition: opacity .45s var(--ease), transform .45s var(--ease), color .5s var(--ease);
     }
     body.is-hot .subtitle {
       color: rgba(255,255,255,0.78);
@@ -289,80 +294,108 @@
       margin: 0 auto 14px auto;
     }
 
+    /* ---------- Top-right stack: LinkedIn + location ---------- */
+    .tr-stack {
+      position: fixed;
+      top: calc(var(--gutter) + var(--safe-t));
+      right: calc(var(--gutter) + var(--safe-r));
+      z-index: 5;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: .4rem;
+      text-align: right;
+    }
+    .tr-stack .locus {
+      font-family: "Instrument Sans", sans-serif;
+      font-weight: 500;
+      font-size: clamp(10px, 1vw, 12px);
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--ink);
+      transition: color .5s var(--ease);
+    }
+    body.is-hot .tr-stack .locus {
+      color: rgba(255,255,255,0.78);
+    }
+
     /* ---------- Corner links ---------- */
     .corner {
-      position: fixed;
-      z-index: 5;
       font-family: "Instrument Sans", sans-serif;
       font-size: clamp(11px, 1.05vw, 13px);
+      font-weight: 500;
       letter-spacing: .14em;
       text-transform: uppercase;
       text-decoration: none;
-      color: var(--ink);
       padding: .45rem .1rem;
-      mix-blend-mode: difference;
       display: inline-flex;
       align-items: center;
       gap: .5rem;
-      transition: gap .35s var(--ease);
+      color: var(--ink);
+      transition: color .5s var(--ease), gap .35s var(--ease);
+      touch-action: manipulation;
     }
-    .corner,
-    .corner:visited { color: #fff; } /* difference handles it */
+    body.is-hot .corner { color: rgba(255,255,255,0.95); }
     .corner .arrow {
       display: inline-block;
       transition: transform .35s var(--ease);
     }
-    .corner:hover { gap: .8rem; }
-    .corner:hover .arrow { transform: translateX(3px); }
-
-    .corner.tr {
-      top: var(--gutter);
-      right: var(--gutter);
+    @media (hover: hover) {
+      .corner:hover { gap: .8rem; color: var(--accent); }
+      .corner:hover .arrow { transform: translateX(3px); }
     }
+
     .corner.bl {
-      bottom: var(--gutter);
-      left: var(--gutter);
+      position: fixed;
+      bottom: calc(var(--gutter) + var(--safe-b));
+      left: calc(var(--gutter) + var(--safe-l));
+      z-index: 5;
     }
     .corner.bl .arrow { transform: rotate(180deg); }
-    .corner.bl:hover .arrow { transform: rotate(180deg) translateX(3px); }
+    @media (hover: hover) {
+      .corner.bl:hover .arrow { transform: rotate(180deg) translateX(3px); }
+    }
 
     /* ---------- Hint (desktop only) ---------- */
     .hint {
       position: fixed;
-      bottom: var(--gutter);
-      right: var(--gutter);
+      bottom: calc(var(--gutter) + var(--safe-b));
+      right: calc(var(--gutter) + var(--safe-r));
       z-index: 5;
       font-family: "Fraunces", serif;
       font-style: italic;
       font-size: clamp(11px, 1vw, 13px);
       color: var(--ink-dim);
-      letter-spacing: 0;
-      mix-blend-mode: difference;
+      transition: opacity .5s var(--ease), color .5s var(--ease);
       opacity: .7;
       pointer-events: none;
-      transition: opacity .5s var(--ease);
     }
-    .hint span { color: #fff; }
+    body.is-hot .hint { color: rgba(255,255,255,0.6); }
     body.has-interacted .hint { opacity: 0; }
 
     @media (hover: none) {
-      .hint span::before { content: "Tap sulle lettere"; }
-    }
-    @media (hover: hover) {
-      .hint span::before { content: "Passa sulle lettere"; }
+      .hint { display: none; }
     }
 
-    /* ---------- Mobile adjustments ---------- */
+    /* ---------- Mobile ---------- */
     @media (max-width: 700px) {
       :root { --gutter: 16px; }
+
       main {
-        padding: 4.5rem var(--gutter) 3rem;
-        gap: 1.5rem;
-        grid-template-rows: 1fr auto;
+        padding:
+          calc(4.2rem + var(--safe-t))
+          calc(var(--gutter) + var(--safe-r))
+          calc(2rem + var(--safe-b))
+          calc(var(--gutter) + var(--safe-l));
+        gap: 1rem;
+        grid-template-rows: auto 1fr auto;
       }
       header.meta {
-        display: none; /* evita sovrapposizione con i corner links */
+        font-size: 10px;
+        letter-spacing: .08em;
       }
+      header.meta em { font-size: 1.1em; }
+
       .hero {
         display: flex;
         align-items: center;
@@ -373,8 +406,8 @@
         line-height: .9;
       }
       .subtitle {
-        font-size: 11px;
-        letter-spacing: .14em;
+        font-size: 10.5px;
+        letter-spacing: .12em;
         line-height: 1.55;
       }
       .caption {
@@ -382,35 +415,39 @@
         bottom: 1rem;
       }
       .below {
-        min-height: 6rem;
+        min-height: 5.5rem;
         padding-bottom: 2.2rem;
       }
+      .tr-stack .locus {
+        font-size: 9px;
+        letter-spacing: .2em;
+      }
       .corner { font-size: 10px; }
-      .hint { display: none; } /* spazio ridotto su mobile */
+
+      /* Hit area leggermente ingrandita per tap comodo */
+      .name .ltr { padding: 0 1px; }
     }
 
     @media (max-width: 420px) {
       .name {
         font-size: clamp(2.4rem, 20vw, 4.5rem);
       }
+      /* Su mobile piccolo nascondiamo il sottotesto italic del portfolio */
+      header.meta em { display: none; }
     }
 
     /* Accessibility */
     @media (prefers-reduced-motion: reduce) {
-      * {
+      *, *::before, *::after {
         transition-duration: .01ms !important;
         animation-duration: .01ms !important;
       }
     }
 
-    /* Focus styles for keyboard nav */
-    .name .ltr:focus-visible {
-      outline: 2px dashed currentColor;
-      outline-offset: 4px;
-    }
     a:focus-visible {
       outline: 2px dashed currentColor;
       outline-offset: 3px;
+      border-radius: 2px;
     }
   </style>
 </head>
@@ -435,22 +472,17 @@
 
   <main>
     <header class="meta">
-      <div class="left">
-        <span>Portfolio <em>— tredici capitoli</em></span>
-      </div>
-      <div class="right">
-        <span>Torino · IT</span>
-      </div>
+      <span>Portfolio <em>— tredici capitoli</em></span>
     </header>
 
     <section class="hero" aria-label="Nome">
       <h1 class="name" id="name">
         <span class="word" aria-label="Angelo">
-          <span class="ltr" data-i="0" tabindex="0">A</span><span class="ltr" data-i="1" tabindex="0">N</span><span class="ltr" data-i="2" tabindex="0">G</span><span class="ltr" data-i="3" tabindex="0">E</span><span class="ltr" data-i="4" tabindex="0">L</span><span class="ltr" data-i="5" tabindex="0">O</span>
+          <span class="ltr" data-i="0">A</span><span class="ltr" data-i="1">N</span><span class="ltr" data-i="2">G</span><span class="ltr" data-i="3">E</span><span class="ltr" data-i="4">L</span><span class="ltr" data-i="5">O</span>
         </span>
         <span class="sp" aria-hidden="true">&nbsp;</span>
         <span class="word" aria-label="Tarditi">
-          <span class="ltr" data-i="6"  tabindex="0">T</span><span class="ltr" data-i="7"  tabindex="0">A</span><span class="ltr" data-i="8"  tabindex="0">R</span><span class="ltr" data-i="9"  tabindex="0">D</span><span class="ltr" data-i="10" tabindex="0">I</span><span class="ltr" data-i="11" tabindex="0">T</span><span class="ltr" data-i="12" tabindex="0">I</span>
+          <span class="ltr" data-i="6">T</span><span class="ltr" data-i="7">A</span><span class="ltr" data-i="8">R</span><span class="ltr" data-i="9">D</span><span class="ltr" data-i="10">I</span><span class="ltr" data-i="11">T</span><span class="ltr" data-i="12">I</span>
         </span>
       </h1>
     </section>
@@ -463,14 +495,20 @@
     </div>
   </main>
 
-  <a class="corner tr" href="https://www.linkedin.com/in/angelotarditi/" target="_blank" rel="noopener noreferrer">
-    <span>LinkedIn</span> <span class="arrow" aria-hidden="true">↗</span>
-  </a>
+  <!-- Top-right: LinkedIn + TORINO · CATANIA · IT -->
+  <div class="tr-stack">
+    <a class="corner tr" href="https://www.linkedin.com/in/angelotarditi/" target="_blank" rel="noopener noreferrer">
+      <span>LinkedIn</span> <span class="arrow" aria-hidden="true">↗</span>
+    </a>
+    <span class="locus">Torino · Catania · IT</span>
+  </div>
+
+  <!-- Bottom-left: email -->
   <a class="corner bl" href="mailto:angelotarditi@gmail.com">
     <span class="arrow" aria-hidden="true">↗</span> <span>angelotarditi@gmail.com</span>
   </a>
 
-  <div class="hint" aria-hidden="true"><span></span></div>
+  <div class="hint" aria-hidden="true"><span>Passa sulle lettere</span></div>
 
   <script>
     (function () {
@@ -491,34 +529,27 @@
       ];
 
       const body      = document.body;
-      const stage     = document.querySelector('.stage');
       const layers    = Array.from(document.querySelectorAll('.layer'));
       const letters   = Array.from(document.querySelectorAll('.name .ltr'));
       const captionEl = document.getElementById('caption');
+      const nameEl    = document.getElementById('name');
 
-      let activeIdx = -1;
+      const isTouch = window.matchMedia('(hover: none)').matches;
+      let activeIdx  = -1;
       let leaveTimer = null;
 
       function activate(i) {
         if (i === activeIdx) return;
         clearTimeout(leaveTimer);
-
-        // Update background layers
         layers.forEach(l => l.classList.toggle('is-active', +l.dataset.i === i));
-
-        // Update letters
         letters.forEach(l => l.classList.toggle('is-active', +l.dataset.i === i));
-
-        // Update caption
         captionEl.textContent = captions[i] || '';
         captionEl.classList.add('is-visible');
-
         body.classList.add('is-hot', 'has-interacted');
-
         activeIdx = i;
       }
 
-      function deactivate() {
+      function deactivate(delay) {
         clearTimeout(leaveTimer);
         leaveTimer = setTimeout(() => {
           layers.forEach(l => l.classList.remove('is-active'));
@@ -526,55 +557,48 @@
           captionEl.classList.remove('is-visible');
           body.classList.remove('is-hot');
           activeIdx = -1;
-        }, 140);
+        }, delay || 140);
       }
 
-      // Desktop: hover
-      letters.forEach((ltr) => {
-        const i = +ltr.dataset.i;
-
-        ltr.addEventListener('mouseenter', () => activate(i));
-        ltr.addEventListener('focus',       () => activate(i));
-
-        // Touch / tap — toggle on tap
-        ltr.addEventListener('click', (e) => {
-          e.preventDefault();
-          if (activeIdx === i) {
-            deactivate();
-          } else {
-            activate(i);
-          }
+      if (!isTouch) {
+        /* DESKTOP: puro hover — nessun click, nessuna cursor pointer */
+        letters.forEach((ltr) => {
+          const i = +ltr.dataset.i;
+          ltr.addEventListener('mouseenter', () => activate(i));
         });
-
-        // Keyboard
-        ltr.addEventListener('keydown', (e) => {
-          if (e.key === 'Enter' || e.key === ' ') {
+        nameEl.addEventListener('mouseleave', () => deactivate());
+      } else {
+        /* MOBILE: tap singolo per attivare, tap fuori per chiudere */
+        letters.forEach((ltr) => {
+          const i = +ltr.dataset.i;
+          const onTap = (e) => {
             e.preventDefault();
-            activate(i);
-          }
-          if (e.key === 'Escape') {
-            deactivate();
-            ltr.blur();
-          }
+            e.stopPropagation();
+            if (activeIdx === i) {
+              deactivate(60);
+            } else {
+              activate(i);
+            }
+          };
+          ltr.addEventListener('touchstart', onTap, { passive: false });
+          ltr.addEventListener('click',      onTap);
         });
-      });
 
-      // Leave area when mouse exits the whole name on desktop
-      const nameEl = document.getElementById('name');
-      nameEl.addEventListener('mouseleave', deactivate);
+        /* Tap fuori dal nome chiude — salvo link (LinkedIn/email),
+           che devono aprirsi senza un flash di chiusura */
+        const outsideHandler = (e) => {
+          const target = e.target;
+          if (nameEl.contains(target)) return;
+          if (target.closest && target.closest('a')) return;
+          if (activeIdx !== -1) deactivate(60);
+        };
+        document.addEventListener('touchstart', outsideHandler, { passive: true });
+        document.addEventListener('click',      outsideHandler);
+      }
 
-      // Click outside name to deactivate (mobile)
-      document.addEventListener('click', (e) => {
-        if (!nameEl.contains(e.target)) deactivate();
-      });
-
-      // Preload images for smooth transitions
-      [
-        '01','02','03','04','05','06','07','08','09','10','11','12','13'
-      ].forEach(n => {
-        const img = new Image();
-        img.src = `assets/${n}.jpg`;
-      });
+      /* Preload per transizioni fluide */
+      ['01','02','03','04','05','06','07','08','09','10','11','12','13']
+        .forEach(n => { const img = new Image(); img.src = `assets/${n}.jpg`; });
     })();
   </script>
 </body>
