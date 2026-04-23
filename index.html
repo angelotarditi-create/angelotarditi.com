@@ -106,6 +106,25 @@
     }
     body.is-hot .stage::after { opacity: 1; }
 
+    /* Scrim inferiore: gradient scuro sul fondo, appare con is-hot,
+       garantisce leggibilità del caption anche su immagini chiare */
+    .scrim {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 35vh;
+      z-index: 1;
+      pointer-events: none;
+      background: linear-gradient(180deg,
+        rgba(0,0,0,0) 0%,
+        rgba(0,0,0,0.35) 60%,
+        rgba(0,0,0,0.6) 100%);
+      opacity: 0;
+      transition: opacity .7s var(--ease);
+    }
+    body.is-hot .scrim { opacity: 1; }
+
     /* Paper grain sul default */
     body::before {
       content: "";
@@ -129,17 +148,23 @@
       min-height: 100svh;
       min-height: 100vh;
       padding:
-        calc(var(--gutter) * 2 + var(--safe-t))
+        calc(var(--gutter) * 3 + var(--safe-t))
         calc(var(--gutter) + var(--safe-r))
         calc(var(--gutter) * 2 + var(--safe-b))
         calc(var(--gutter) + var(--safe-l));
       display: grid;
-      grid-template-rows: auto 1fr auto;
+      grid-template-rows: 1fr auto;
       gap: 1.25rem;
     }
 
-    /* ---------- Top meta (left) ---------- */
-    header.meta {
+    /* ---------- Top-left stack: Portfolio ---------- */
+    .tl-stack {
+      position: fixed;
+      top: calc(var(--gutter) + var(--safe-t));
+      left: calc(var(--gutter) + var(--safe-l));
+      z-index: 5;
+    }
+    .portfolio {
       font-family: "Instrument Sans", sans-serif;
       font-size: clamp(11px, 1.05vw, 13px);
       font-weight: 500;
@@ -148,7 +173,7 @@
       color: var(--ink);
       transition: color .5s var(--ease);
     }
-    header.meta em {
+    .portfolio em {
       font-family: "Fraunces", serif;
       font-style: italic;
       font-weight: 400;
@@ -157,7 +182,7 @@
       font-size: 1.15em;
       opacity: .72;
     }
-    body.is-hot header.meta {
+    body.is-hot .portfolio {
       color: rgba(255,255,255,0.85);
     }
 
@@ -268,9 +293,9 @@
       margin: 0;
       font-family: "Fraunces", serif;
       font-style: italic;
-      font-weight: 400;
+      font-weight: 500;
       font-variation-settings: "opsz" 28, "SOFT" 50;
-      font-size: clamp(16px, 1.9vw, 24px);
+      font-size: clamp(17px, 1.9vw, 24px);
       color: #fff;
       letter-spacing: 0;
       line-height: 1.35;
@@ -279,7 +304,9 @@
       transition: opacity .5s var(--ease) .05s, transform .55s var(--ease) .05s;
       text-wrap: balance;
       pointer-events: none;
-      text-shadow: 0 1px 16px rgba(0,0,0,0.35);
+      text-shadow:
+        0 1px 2px rgba(0,0,0,0.6),
+        0 2px 18px rgba(0,0,0,0.5);
     }
     body.is-hot .caption.is-visible {
       opacity: 1;
@@ -383,18 +410,18 @@
 
       main {
         padding:
-          calc(4.2rem + var(--safe-t))
+          calc(4.5rem + var(--safe-t))
           calc(var(--gutter) + var(--safe-r))
           calc(2rem + var(--safe-b))
           calc(var(--gutter) + var(--safe-l));
         gap: 1rem;
-        grid-template-rows: auto 1fr auto;
+        grid-template-rows: 1fr auto;
       }
-      header.meta {
+      .portfolio {
         font-size: 10px;
         letter-spacing: .08em;
       }
-      header.meta em { font-size: 1.1em; }
+      .portfolio em { font-size: 1.1em; }
 
       .hero {
         display: flex;
@@ -406,17 +433,19 @@
         line-height: .9;
       }
       .subtitle {
-        font-size: 10.5px;
-        letter-spacing: .12em;
-        line-height: 1.55;
+        font-size: 11px;
+        letter-spacing: .14em;
+        line-height: 1.6;
       }
       .caption {
-        font-size: 16px;
-        bottom: 1rem;
+        font-size: 19px;
+        line-height: 1.4;
+        bottom: 1.25rem;
+        max-width: 92vw;
       }
       .below {
-        min-height: 5.5rem;
-        padding-bottom: 2.2rem;
+        min-height: 7rem;
+        padding-bottom: 2.8rem;
       }
       .tr-stack .locus {
         font-size: 9px;
@@ -426,14 +455,16 @@
 
       /* Hit area leggermente ingrandita per tap comodo */
       .name .ltr { padding: 0 1px; }
+
+      /* Scrim leggermente più ampio su mobile per coprire caption + sottotesto area */
+      .scrim { height: 45vh; }
     }
 
     @media (max-width: 420px) {
       .name {
         font-size: clamp(2.4rem, 20vw, 4.5rem);
       }
-      /* Su mobile piccolo nascondiamo il sottotesto italic del portfolio */
-      header.meta em { display: none; }
+      .portfolio em { display: none; }
     }
 
     /* Accessibility */
@@ -470,11 +501,9 @@
     <div class="layer" data-i="12" style="background-image:url('assets/13.jpg')"></div>
   </div>
 
-  <main>
-    <header class="meta">
-      <span>Portfolio <em>— tredici capitoli</em></span>
-    </header>
+  <div class="scrim" aria-hidden="true"></div>
 
+  <main>
     <section class="hero" aria-label="Nome">
       <h1 class="name" id="name">
         <span class="word" aria-label="Angelo">
@@ -494,6 +523,11 @@
       <p class="caption" id="caption" aria-live="polite"></p>
     </div>
   </main>
+
+  <!-- Top-left: Portfolio -->
+  <div class="tl-stack">
+    <span class="portfolio">Portfolio <em>— tredici capitoli</em></span>
+  </div>
 
   <!-- Top-right: LinkedIn + TORINO · CATANIA · IT -->
   <div class="tr-stack">
