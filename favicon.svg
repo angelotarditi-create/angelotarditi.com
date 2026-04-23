@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="12" fill="#111112"/>
+  <!-- Monogramma AT in stile editoriale -->
+  <g fill="#efeadc">
+    <!-- A -->
+    <path d="M 11 46 L 21 18 L 28 18 L 38 46 L 32 46 L 30 39 L 19 39 L 17 46 Z M 20.8 34 L 28.2 34 L 24.5 22.5 Z"/>
+    <!-- T -->
+    <path d="M 37 18 L 55 18 L 55 23 L 48.5 23 L 48.5 46 L 43.5 46 L 43.5 23 L 37 23 Z"/>
+  </g>
+  <!-- piccolo punto di chiusura editoriale -->
+  <circle cx="52" cy="46" r="2" fill="#d94f1f"/>
+</svg>

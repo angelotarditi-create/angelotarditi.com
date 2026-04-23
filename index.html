@@ -1,491 +1,581 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Parkour - Associazione di Promozione Sociale</title>
-<meta name="description" content="Parkour è una associazione di promozione sociale con sede a Torino. Ci occupiamo di musica dal vivo e organizzazione di eventi culturali.">
-<meta name="robots" content="index, follow">
-<meta name="author" content="Parkour A.p.s.">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#efeadc" />
 
-<!-- Favicon -->
-<link rel="icon" type="image/x-icon" href="favicon.ico">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
-<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-<meta name="theme-color" content="#0a0a0a">
+  <title>Angelo Tarditi — Account & Project Manager · Creative Strategist</title>
+  <meta name="description" content="Angelo Tarditi. Account e Project Manager, Creative Strategist e Cofondatore di Eskimo Creative Agency. Tredici lettere, tredici capitoli." />
+  <meta name="author" content="Angelo Tarditi" />
 
-<!-- Open Graph / Facebook / WhatsApp / LinkedIn -->
-<meta property="og:type" content="website">
-<meta property="og:locale" content="it_IT">
-<meta property="og:site_name" content="Parkour A.p.s.">
-<meta property="og:title" content="Parkour - Associazione di Promozione Sociale">
-<meta property="og:description" content="Parkour è una associazione di promozione sociale con sede a Torino. Ci occupiamo di musica dal vivo e organizzazione di eventi culturali.">
-<meta property="og:image" content="parkour-preview.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Parkour - Associazione di Promozione Sociale">
+  <!-- Open Graph / social preview -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Angelo Tarditi" />
+  <meta property="og:description" content="Account & Project Manager · Creative Strategist · Cofondatore di Eskimo Creative Agency" />
+  <meta property="og:image" content="og-image.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Angelo Tarditi" />
+  <meta name="twitter:description" content="Account & Project Manager · Creative Strategist · Cofondatore di Eskimo Creative Agency" />
+  <meta name="twitter:image" content="og-image.jpg" />
 
-<!-- Twitter Card -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Parkour - Associazione di Promozione Sociale">
-<meta name="twitter:description" content="Parkour è una associazione di promozione sociale con sede a Torino. Ci occupiamo di musica dal vivo e organizzazione di eventi culturali.">
-<meta name="twitter:image" content="parkour-preview.png">
+  <!-- Favicon (SVG + fallback) -->
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="alternate icon" href="favicon.ico" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
 
-<!-- Dati strutturati per Google -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "Parkour A.p.s.",
-  "alternateName": "Parkour Associazione di Promozione Sociale",
-  "description": "Associazione di promozione sociale con sede a Torino, attiva nell'organizzazione di eventi culturali e musica dal vivo.",
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "Via Lancia 138/2",
-    "postalCode": "10141",
-    "addressLocality": "Torino",
-    "addressCountry": "IT"
-  },
-  "taxID": "97910760012"
-}
-</script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=JetBrains+Mono:wght@400;700&family=Archivo:wght@400;600;900&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --bg: #0a0a0a;
-    --fg: #f5f5f1;
-    --accent: #ff3b1f;
-    --muted: #8a8a85;
-    --grid: rgba(245, 245, 241, 0.06);
-  }
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,400..900,0..100;1,9..144,400..900,0..100&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet" />
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+  <style>
+    /* ---------- Reset & tokens ---------- */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
 
-  html, body {
-    height: 100%;
-    background: var(--bg);
-    color: var(--fg);
-    font-family: 'Archivo', sans-serif;
-    overflow-x: hidden;
-  }
+    :root {
+      --paper:   #efeadc;      /* off-white caldo */
+      --ink:     #111112;      /* nero inchiostro */
+      --ink-dim: #3a3a3c;
+      --accent:  #d94f1f;      /* terracotta accent */
+      --line:    rgba(17, 17, 18, 0.22);
+      --overlay: rgba(10, 10, 12, 0.45);
+      --gutter:  clamp(18px, 3vw, 36px);
+      --stroke:  1.2px;
+      --ease:    cubic-bezier(.22, 1, .36, 1);
+    }
 
-  /* ============ BACKGROUND VIDEO ============ */
-  .video-wrap {
-    position: fixed;
-    inset: 0;
-    z-index: 0;
-    overflow: hidden;
-    background: #000;
-  }
+    html, body {
+      height: 100%;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: "Instrument Sans", system-ui, sans-serif;
+      overflow: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
 
-  .video-wrap iframe {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    /* Trucco per coprire tutto lo schermo mantenendo 16:9 */
-    width: 100vw;
-    height: 56.25vw; /* 16:9 */
-    min-height: 100vh;
-    min-width: 177.77vh; /* 16:9 */
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-    border: 0;
-  }
+    body {
+      position: relative;
+      min-height: 100svh;
+      min-height: 100vh;
+      overflow: hidden;
+      transition: background-color .6s var(--ease);
+    }
 
-  /* Overlay scuro sopra il video per leggibilità */
-  .video-wrap::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(ellipse at center, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.85) 100%),
-      linear-gradient(180deg, rgba(10,10,10,0.6) 0%, rgba(10,10,10,0.3) 40%, rgba(10,10,10,0.9) 100%);
-    z-index: 1;
-  }
+    /* ---------- Background image stage ---------- */
+    .stage {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .layer {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      opacity: 0;
+      transform: scale(1.06);
+      transition: opacity 1s var(--ease), transform 6s var(--ease);
+      will-change: opacity, transform;
+    }
+    .layer.is-active {
+      opacity: 1;
+      transform: scale(1);
+    }
+    .stage::after { /* overlay per leggibilità */
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at center, rgba(0,0,0,0) 0%, rgba(0,0,0,.28) 60%, rgba(0,0,0,.55) 100%),
+        linear-gradient(180deg, rgba(0,0,0,.18), rgba(0,0,0,.32));
+      opacity: 0;
+      transition: opacity 1s var(--ease);
+    }
+    body.is-hot .stage::after { opacity: 1; }
 
-  /* Grain overlay */
-  .grain {
-    position: fixed;
-    inset: 0;
-    z-index: 2;
-    pointer-events: none;
-    opacity: 0.15;
-    mix-blend-mode: overlay;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.8'/></svg>");
-  }
+    /* Subtle paper grain on default state */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      background-image:
+        radial-gradient(circle at 20% 20%, rgba(17,17,18,0.03) 0, transparent 40%),
+        radial-gradient(circle at 80% 80%, rgba(17,17,18,0.04) 0, transparent 45%);
+      mix-blend-mode: multiply;
+      opacity: 1;
+      transition: opacity .6s var(--ease);
+    }
+    body.is-hot::before { opacity: 0; }
 
-  /* Griglia sottile */
-  .grid-lines {
-    position: fixed;
-    inset: 0;
-    z-index: 2;
-    pointer-events: none;
-    background-image:
-      linear-gradient(var(--grid) 1px, transparent 1px),
-      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
-    background-size: 80px 80px;
-  }
+    /* ---------- Main ---------- */
+    main {
+      position: relative;
+      z-index: 2;
+      min-height: 100svh;
+      min-height: 100vh;
+      padding: calc(var(--gutter) * 2) var(--gutter);
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      gap: 1.25rem;
+    }
 
-  /* ============ HEADER ============ */
-  header {
-    position: relative;
-    z-index: 10;
-    padding: 24px 40px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    animation: fadeIn 1.2s ease 0.3s both;
-  }
+    header.meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 2rem;
+      font-family: "Instrument Sans", sans-serif;
+      font-size: clamp(11px, 1.05vw, 13px);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--ink);
+      mix-blend-mode: difference;
+      /* difference con bianco → rende il testo leggibile su ogni sfondo */
+    }
+    header.meta .left, header.meta .right {
+      color: #fff; /* difference con sfondo reale */
+    }
+    header.meta span { opacity: .9; }
+    header.meta em {
+      font-style: normal;
+      font-family: "Fraunces", serif;
+      font-style: italic;
+      font-weight: 400;
+      text-transform: none;
+      letter-spacing: 0;
+      font-size: 1.15em;
+      opacity: .8;
+    }
 
-  header .brand-mark {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    color: var(--fg);
-  }
+    /* ---------- Hero (the name) ---------- */
+    .hero {
+      align-self: center;
+      text-align: center;
+      position: relative;
+    }
 
-  header .brand-mark .dot {
-    width: 8px;
-    height: 8px;
-    background: var(--accent);
-    border-radius: 50%;
-    box-shadow: 0 0 12px var(--accent);
-    animation: pulse 2s ease-in-out infinite;
-  }
+    .name {
+      margin: 0;
+      font-family: "Fraunces", serif;
+      font-weight: 900;
+      font-variation-settings: "opsz" 144, "SOFT" 30;
+      font-size: clamp(3.2rem, 13.5vw, 15rem);
+      line-height: .86;
+      letter-spacing: -0.035em;
+      color: var(--ink);
+      user-select: none;
+      cursor: default;
+      transition: color .5s var(--ease);
+      /* prevent awkward text-wrap */
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0;
+    }
 
-  nav ul {
-    display: flex;
-    gap: 32px;
-    list-style: none;
-  }
+    .name .word {
+      display: inline-flex;
+      flex-wrap: nowrap;
+    }
+    .name .sp {
+      width: 0.38ch;
+      display: inline-block;
+    }
 
-  nav a {
-    color: var(--fg);
-    text-decoration: none;
-    opacity: 0.7;
-    transition: opacity 0.2s, color 0.2s;
-    position: relative;
-  }
+    .name .ltr {
+      display: inline-block;
+      position: relative;
+      transition:
+        color .35s var(--ease),
+        -webkit-text-stroke-color .35s var(--ease),
+        transform .5s var(--ease);
+      cursor: pointer;
+    }
 
-  nav a:hover {
-    opacity: 1;
-    color: var(--accent);
-  }
+    /* Outline state: applied to all letters when any is active */
+    body.is-hot .name .ltr {
+      color: transparent;
+      -webkit-text-stroke: var(--stroke) rgba(255,255,255,0.9);
+      text-stroke: var(--stroke) rgba(255,255,255,0.9);
+    }
 
-  nav a.active { opacity: 1; }
-  nav a.active::before {
-    content: "";
-    position: absolute;
-    left: -14px;
-    top: 50%;
-    width: 6px;
-    height: 1px;
-    background: var(--accent);
-  }
+    /* The active letter itself: slightly highlighted */
+    body.is-hot .name .ltr.is-active {
+      -webkit-text-stroke-color: #fff;
+      color: rgba(255,255,255,0.08);
+      transform: translateY(-0.012em);
+    }
 
-  /* ============ HERO ============ */
-  .hero {
-    position: relative;
-    z-index: 5;
-    min-height: calc(100vh - 72px);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 80px 40px 140px;
-    text-align: center;
-  }
+    /* Hover hint when nothing is active yet (desktop) */
+    @media (hover: hover) {
+      .name .ltr:hover {
+        color: var(--accent);
+      }
+      body.is-hot .name .ltr:hover {
+        color: rgba(255,255,255,0.15);
+      }
+    }
 
-  .tag-top {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 32px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    animation: fadeIn 1s ease 0.6s both;
-  }
+    /* ---------- Caption area ---------- */
+    .below {
+      align-self: end;
+      text-align: center;
+      display: grid;
+      place-items: center;
+      gap: 1rem;
+      padding-bottom: 1.5rem;
+      min-height: 5rem;
+      position: relative;
+    }
 
-  .tag-top::before, .tag-top::after {
-    content: "";
-    width: 40px;
-    height: 1px;
-    background: var(--accent);
-  }
+    .subtitle {
+      font-family: "Instrument Sans", sans-serif;
+      font-weight: 500;
+      font-size: clamp(12px, 1.25vw, 16px);
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--ink-dim);
+      margin: 0;
+      max-width: 52rem;
+      line-height: 1.45;
+      transition: opacity .45s var(--ease), transform .45s var(--ease);
+    }
+    body.is-hot .subtitle {
+      color: rgba(255,255,255,0.78);
+      opacity: 0;
+      transform: translateY(8px);
+      pointer-events: none;
+    }
 
-  /* LOGO PARKOUR — il pezzo forte */
-  .logo {
-    font-family: 'Anton', sans-serif;
-    font-weight: 900;
-    font-size: clamp(80px, 22vw, 340px);
-    line-height: 0.85;
-    letter-spacing: -0.02em;
-    text-transform: uppercase;
-    color: var(--fg);
-    position: relative;
-    text-shadow:
-      0 0 40px rgba(0,0,0,0.5),
-      0 0 80px rgba(0,0,0,0.3);
-    animation: logoReveal 1.4s cubic-bezier(0.19, 1, 0.22, 1) 0.2s both;
-  }
+    .caption {
+      position: absolute;
+      left: 50%;
+      transform: translate(-50%, 8px);
+      bottom: 0.25rem;
+      margin: 0;
+      font-family: "Fraunces", serif;
+      font-style: italic;
+      font-weight: 400;
+      font-variation-settings: "opsz" 28, "SOFT" 50;
+      font-size: clamp(16px, 1.9vw, 24px);
+      color: #fff;
+      letter-spacing: 0;
+      line-height: 1.35;
+      max-width: min(90vw, 42rem);
+      opacity: 0;
+      transition: opacity .5s var(--ease) .05s, transform .55s var(--ease) .05s;
+      text-wrap: balance;
+      pointer-events: none;
+      text-shadow: 0 1px 16px rgba(0,0,0,0.35);
+    }
+    body.is-hot .caption.is-visible {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+    .caption::before {
+      content: "";
+      display: block;
+      width: 36px;
+      height: 1px;
+      background: rgba(255,255,255,0.55);
+      margin: 0 auto 14px auto;
+    }
 
-  /* Effetto sovrapposizione rossa */
-  .logo::before {
-    content: "PARKOUR";
-    position: absolute;
-    top: 0;
-    left: 4px;
-    color: var(--accent);
-    mix-blend-mode: screen;
-    opacity: 0.55;
-    z-index: -1;
-    transform: translateX(2px);
-    animation: glitch 4s ease-in-out infinite;
-  }
+    /* ---------- Corner links ---------- */
+    .corner {
+      position: fixed;
+      z-index: 5;
+      font-family: "Instrument Sans", sans-serif;
+      font-size: clamp(11px, 1.05vw, 13px);
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--ink);
+      padding: .45rem .1rem;
+      mix-blend-mode: difference;
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      transition: gap .35s var(--ease);
+    }
+    .corner,
+    .corner:visited { color: #fff; } /* difference handles it */
+    .corner .arrow {
+      display: inline-block;
+      transition: transform .35s var(--ease);
+    }
+    .corner:hover { gap: .8rem; }
+    .corner:hover .arrow { transform: translateX(3px); }
 
-  .subtitle {
-    font-family: 'Archivo', sans-serif;
-    font-weight: 900;
-    font-size: clamp(13px, 1.1vw, 16px);
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: #ff8a1f;
-    margin-top: 36px;
-    animation: fadeIn 1s ease 1s both;
-  }
+    .corner.tr {
+      top: var(--gutter);
+      right: var(--gutter);
+    }
+    .corner.bl {
+      bottom: var(--gutter);
+      left: var(--gutter);
+    }
+    .corner.bl .arrow { transform: rotate(180deg); }
+    .corner.bl:hover .arrow { transform: rotate(180deg) translateX(3px); }
 
-  .subtitle span {
-    color: var(--accent);
-    font-weight: 900;
-  }
+    /* ---------- Hint (desktop only) ---------- */
+    .hint {
+      position: fixed;
+      bottom: var(--gutter);
+      right: var(--gutter);
+      z-index: 5;
+      font-family: "Fraunces", serif;
+      font-style: italic;
+      font-size: clamp(11px, 1vw, 13px);
+      color: var(--ink-dim);
+      letter-spacing: 0;
+      mix-blend-mode: difference;
+      opacity: .7;
+      pointer-events: none;
+      transition: opacity .5s var(--ease);
+    }
+    .hint span { color: #fff; }
+    body.has-interacted .hint { opacity: 0; }
 
-  /* ============ AVVISO ASSEMBLEA ============ */
-  .notice {
-    max-width: 640px;
-    width: 100%;
-    margin-top: 56px;
-    padding: 24px 28px;
-    border: 1px solid rgba(245, 245, 241, 0.18);
-    border-left: 3px solid var(--accent);
-    background: rgba(10, 10, 10, 0.55);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    text-align: left;
-    animation: fadeIn 1s ease 1.3s both;
-  }
+    @media (hover: none) {
+      .hint span::before { content: "Tap sulle lettere"; }
+    }
+    @media (hover: hover) {
+      .hint span::before { content: "Passa sulle lettere"; }
+    }
 
-  .notice-label {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 14px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
+    /* ---------- Mobile adjustments ---------- */
+    @media (max-width: 700px) {
+      :root { --gutter: 16px; }
+      main {
+        padding: 4.5rem var(--gutter) 3rem;
+        gap: 1.5rem;
+        grid-template-rows: 1fr auto;
+      }
+      header.meta {
+        display: none; /* evita sovrapposizione con i corner links */
+      }
+      .hero {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .name {
+        font-size: clamp(2.6rem, 19vw, 6rem);
+        line-height: .9;
+      }
+      .subtitle {
+        font-size: 11px;
+        letter-spacing: .14em;
+        line-height: 1.55;
+      }
+      .caption {
+        font-size: 16px;
+        bottom: 1rem;
+      }
+      .below {
+        min-height: 6rem;
+        padding-bottom: 2.2rem;
+      }
+      .corner { font-size: 10px; }
+      .hint { display: none; } /* spazio ridotto su mobile */
+    }
 
-  .notice-label::before {
-    content: "";
-    width: 6px;
-    height: 6px;
-    background: var(--accent);
-    border-radius: 50%;
-  }
+    @media (max-width: 420px) {
+      .name {
+        font-size: clamp(2.4rem, 20vw, 4.5rem);
+      }
+    }
 
-  .notice-text {
-    font-family: 'Archivo', sans-serif;
-    font-size: 14px;
-    line-height: 1.65;
-    color: var(--fg);
-    opacity: 0.92;
-  }
+    /* Accessibility */
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        transition-duration: .01ms !important;
+        animation-duration: .01ms !important;
+      }
+    }
 
-  .notice-text strong {
-    color: var(--fg);
-    font-weight: 700;
-  }
-
-  .cta-row {
-    display: flex;
-    gap: 16px;
-    margin-top: 56px;
-    animation: fadeIn 1s ease 1.3s both;
-  }
-
-  .btn {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    padding: 16px 32px;
-    border: 1px solid var(--fg);
-    background: transparent;
-    color: var(--fg);
-    text-decoration: none;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .btn.primary {
-    background: var(--accent);
-    border-color: var(--accent);
-  }
-
-  .btn:hover {
-    background: var(--fg);
-    color: var(--bg);
-    border-color: var(--fg);
-  }
-
-  .btn.primary:hover {
-    background: var(--fg);
-    color: var(--accent);
-  }
-
-  /* ============ BOTTOM UI ============ */
-  .hud-bottom {
-    position: fixed;
-    bottom: 24px;
-    left: 40px;
-    right: 40px;
-    z-index: 10;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--muted);
-    animation: fadeIn 1s ease 1.6s both;
-  }
-
-  .hud-bottom .left, .hud-bottom .right {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-
-  .hud-bottom .right { text-align: right; }
-
-  .hud-bottom .value {
-    color: var(--fg);
-  }
-
-  /* Corner brackets */
-  .corner {
-    position: fixed;
-    width: 20px;
-    height: 20px;
-    border: 1px solid var(--fg);
-    opacity: 0.5;
-    z-index: 10;
-  }
-  .corner.tl { top: 12px; left: 12px; border-right: none; border-bottom: none; }
-  .corner.tr { top: 12px; right: 12px; border-left: none; border-bottom: none; }
-  .corner.bl { bottom: 12px; left: 12px; border-right: none; border-top: none; }
-  .corner.br { bottom: 12px; right: 12px; border-left: none; border-top: none; }
-
-  /* ============ ANIMATIONS ============ */
-  @keyframes logoReveal {
-    0% { opacity: 0; transform: translateY(60px) scale(0.95); filter: blur(10px); }
-    100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
-  }
-
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.5; transform: scale(1.3); }
-  }
-
-  @keyframes glitch {
-    0%, 92%, 100% { transform: translateX(2px); opacity: 0.55; }
-    93% { transform: translateX(-3px); opacity: 0.8; }
-    94% { transform: translateX(4px); opacity: 0.3; }
-    95% { transform: translateX(-1px); opacity: 0.7; }
-  }
-
-  /* ============ RESPONSIVE ============ */
-  @media (max-width: 768px) {
-    header { padding: 16px 20px; }
-    nav ul { gap: 16px; }
-    nav a { font-size: 10px; }
-    .hero { padding: 0 20px; }
-    .hud-bottom { left: 20px; right: 20px; font-size: 9px; }
-    .cta-row { flex-direction: column; width: 100%; max-width: 280px; }
-    .btn { text-align: center; }
-    .subtitle { letter-spacing: 0.2em; }
-  }
-</style>
+    /* Focus styles for keyboard nav */
+    .name .ltr:focus-visible {
+      outline: 2px dashed currentColor;
+      outline-offset: 4px;
+    }
+    a:focus-visible {
+      outline: 2px dashed currentColor;
+      outline-offset: 3px;
+    }
+  </style>
 </head>
 <body>
 
-  <!-- Video di sfondo -->
-  <div class="video-wrap">
-    <iframe
-      src="https://www.youtube.com/embed/z6DY5GbrH5I?autoplay=1&mute=1&loop=1&playlist=z6DY5GbrH5I&controls=0&showinfo=0&modestbranding=1&rel=0&iv_load_policy=3&playsinline=1&disablekb=1"
-      title="Background video"
-      frameborder="0"
-      allow="autoplay; encrypted-media"
-      allowfullscreen>
-    </iframe>
+  <!-- Background stage: one layer per letter -->
+  <div class="stage" aria-hidden="true">
+    <div class="layer" data-i="0"  style="background-image:url('assets/01.jpg')"></div>
+    <div class="layer" data-i="1"  style="background-image:url('assets/02.jpg')"></div>
+    <div class="layer" data-i="2"  style="background-image:url('assets/03.jpg')"></div>
+    <div class="layer" data-i="3"  style="background-image:url('assets/04.jpg')"></div>
+    <div class="layer" data-i="4"  style="background-image:url('assets/05.jpg')"></div>
+    <div class="layer" data-i="5"  style="background-image:url('assets/06.jpg')"></div>
+    <div class="layer" data-i="6"  style="background-image:url('assets/07.jpg')"></div>
+    <div class="layer" data-i="7"  style="background-image:url('assets/08.jpg')"></div>
+    <div class="layer" data-i="8"  style="background-image:url('assets/09.jpg')"></div>
+    <div class="layer" data-i="9"  style="background-image:url('assets/10.jpg')"></div>
+    <div class="layer" data-i="10" style="background-image:url('assets/11.jpg')"></div>
+    <div class="layer" data-i="11" style="background-image:url('assets/12.jpg')"></div>
+    <div class="layer" data-i="12" style="background-image:url('assets/13.jpg')"></div>
   </div>
 
-  <div class="grain"></div>
-  <div class="grid-lines"></div>
+  <main>
+    <header class="meta">
+      <div class="left">
+        <span>Portfolio <em>— tredici capitoli</em></span>
+      </div>
+      <div class="right">
+        <span>Torino · IT</span>
+      </div>
+    </header>
 
-  <!-- Corner brackets per estetica HUD -->
-  <div class="corner tl"></div>
-  <div class="corner tr"></div>
-  <div class="corner bl"></div>
-  <div class="corner br"></div>
+    <section class="hero" aria-label="Nome">
+      <h1 class="name" id="name">
+        <span class="word" aria-label="Angelo">
+          <span class="ltr" data-i="0" tabindex="0">A</span><span class="ltr" data-i="1" tabindex="0">N</span><span class="ltr" data-i="2" tabindex="0">G</span><span class="ltr" data-i="3" tabindex="0">E</span><span class="ltr" data-i="4" tabindex="0">L</span><span class="ltr" data-i="5" tabindex="0">O</span>
+        </span>
+        <span class="sp" aria-hidden="true">&nbsp;</span>
+        <span class="word" aria-label="Tarditi">
+          <span class="ltr" data-i="6"  tabindex="0">T</span><span class="ltr" data-i="7"  tabindex="0">A</span><span class="ltr" data-i="8"  tabindex="0">R</span><span class="ltr" data-i="9"  tabindex="0">D</span><span class="ltr" data-i="10" tabindex="0">I</span><span class="ltr" data-i="11" tabindex="0">T</span><span class="ltr" data-i="12" tabindex="0">I</span>
+        </span>
+      </h1>
+    </section>
 
-  <!-- Header -->
-  <header>
-    <div class="brand-mark">
-      <span class="dot"></span>
-      <span>LIVE · REC 001</span>
+    <div class="below">
+      <p class="subtitle">
+        Account e Project Manager · Creative Strategist · Cofondatore di Eskimo Creative Agency
+      </p>
+      <p class="caption" id="caption" aria-live="polite"></p>
     </div>
-  </header>
+  </main>
 
-  <!-- Hero -->
-  <section class="hero">
-    <h1 class="logo">PARKOUR</h1>
+  <a class="corner tr" href="https://www.linkedin.com/in/angelotarditi/" target="_blank" rel="noopener noreferrer">
+    <span>LinkedIn</span> <span class="arrow" aria-hidden="true">↗</span>
+  </a>
+  <a class="corner bl" href="mailto:angelotarditi@gmail.com">
+    <span class="arrow" aria-hidden="true">↗</span> <span>angelotarditi@gmail.com</span>
+  </a>
 
-    <p class="subtitle">Associazione di Promozione Sociale</p>
+  <div class="hint" aria-hidden="true"><span></span></div>
 
-    <div class="notice">
-      <div class="notice-label">Avviso ai Soci</div>
-      <p class="notice-text">È convocata l'Assemblea Ordinaria dei Soci di Parkour A.p.s. per Domenica 26 aprile 2026 alle ore 01:00 in prima convocazione e, occorrendo, <strong>alle ore 18:00 di giorno 27 aprile 2026</strong> in seconda convocazione, presso la sede legale.</p>
-    </div>
-  </section>
+  <script>
+    (function () {
+      const captions = [
+        /* A */ "Da piccolo giocavo a fare il lavoro che faccio oggi.",
+        /* N */ "Ingegneria del cinema: aveva anche dei corsi per imparare a raccontare storie.",
+        /* G */ "La prima fiera sui dispositivi indossabili: il Wearable Tech Torino.",
+        /* E */ "Il primo giorno di vero lavoro. In Eggers.",
+        /* L */ "Gli amici dell'università.",
+        /* O */ "11 novembre 2017 — la prima edizione di Visionary Days.",
+        /* T */ "La seconda edizione di Visionary Days.",
+        /* A */ "Una pagina intera su La Stampa.",
+        /* R */ "Un piano editoriale, ma fisico.",
+        /* D */ "Quella volta che ero in videochiamata con Mattarella.",
+        /* I */ "#UnoNonBasta e la proiezione su Palazzo Chigi.",
+        /* T */ "Una campagna elettorale per un candidato fake.",
+        /* I */ "…il prossimo capitolo è ancora da scrivere."
+      ];
 
-  <!-- HUD bottom -->
-  <div class="hud-bottom">
-    <div class="left">
-      <div class="value">Parkour A.p.s.</div>
-      <div>Via Lancia 138/2 · 10141 Torino</div>
-      <div>CF 97910760012</div>
-    </div>
-  </div>
+      const body      = document.body;
+      const stage     = document.querySelector('.stage');
+      const layers    = Array.from(document.querySelectorAll('.layer'));
+      const letters   = Array.from(document.querySelectorAll('.name .ltr'));
+      const captionEl = document.getElementById('caption');
 
+      let activeIdx = -1;
+      let leaveTimer = null;
+
+      function activate(i) {
+        if (i === activeIdx) return;
+        clearTimeout(leaveTimer);
+
+        // Update background layers
+        layers.forEach(l => l.classList.toggle('is-active', +l.dataset.i === i));
+
+        // Update letters
+        letters.forEach(l => l.classList.toggle('is-active', +l.dataset.i === i));
+
+        // Update caption
+        captionEl.textContent = captions[i] || '';
+        captionEl.classList.add('is-visible');
+
+        body.classList.add('is-hot', 'has-interacted');
+
+        activeIdx = i;
+      }
+
+      function deactivate() {
+        clearTimeout(leaveTimer);
+        leaveTimer = setTimeout(() => {
+          layers.forEach(l => l.classList.remove('is-active'));
+          letters.forEach(l => l.classList.remove('is-active'));
+          captionEl.classList.remove('is-visible');
+          body.classList.remove('is-hot');
+          activeIdx = -1;
+        }, 140);
+      }
+
+      // Desktop: hover
+      letters.forEach((ltr) => {
+        const i = +ltr.dataset.i;
+
+        ltr.addEventListener('mouseenter', () => activate(i));
+        ltr.addEventListener('focus',       () => activate(i));
+
+        // Touch / tap — toggle on tap
+        ltr.addEventListener('click', (e) => {
+          e.preventDefault();
+          if (activeIdx === i) {
+            deactivate();
+          } else {
+            activate(i);
+          }
+        });
+
+        // Keyboard
+        ltr.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            activate(i);
+          }
+          if (e.key === 'Escape') {
+            deactivate();
+            ltr.blur();
+          }
+        });
+      });
+
+      // Leave area when mouse exits the whole name on desktop
+      const nameEl = document.getElementById('name');
+      nameEl.addEventListener('mouseleave', deactivate);
+
+      // Click outside name to deactivate (mobile)
+      document.addEventListener('click', (e) => {
+        if (!nameEl.contains(e.target)) deactivate();
+      });
+
+      // Preload images for smooth transitions
+      [
+        '01','02','03','04','05','06','07','08','09','10','11','12','13'
+      ].forEach(n => {
+        const img = new Image();
+        img.src = `assets/${n}.jpg`;
+      });
+    })();
+  </script>
 </body>
 </html>
