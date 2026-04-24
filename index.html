@@ -145,16 +145,17 @@
     main {
       position: relative;
       z-index: 2;
-      min-height: 100svh;
       min-height: 100vh;
+      min-height: 100svh;
+      min-height: 100dvh;
       padding:
-        calc(var(--gutter) * 3 + var(--safe-t))
+        calc(var(--gutter) * 4 + var(--safe-t))
         calc(var(--gutter) + var(--safe-r))
-        calc(var(--gutter) * 2 + var(--safe-b))
+        calc(var(--gutter) * 6 + var(--safe-b))
         calc(var(--gutter) + var(--safe-l));
-      display: grid;
-      grid-template-rows: 1fr auto;
-      gap: 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     /* ---------- Top-left stack: Portfolio ---------- */
@@ -256,14 +257,24 @@
 
     /* ---------- Caption area ---------- */
     .below {
-      align-self: end;
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: calc(3.5rem + var(--safe-b));
+      z-index: 3;
+      padding: 0 calc(var(--gutter) + var(--safe-l)) 0 calc(var(--gutter) + var(--safe-r));
       text-align: center;
       display: grid;
       place-items: center;
-      gap: 1rem;
-      padding-bottom: 1.5rem;
-      min-height: 5rem;
-      position: relative;
+      pointer-events: none;
+    }
+
+    /* subtitle e caption occupano la stessa cella di grid → si sovrappongono */
+    .subtitle, .caption {
+      grid-area: 1 / 1;
+      margin: 0;
+      max-width: min(92vw, 52rem);
+      transition: opacity .5s var(--ease), transform .5s var(--ease), color .5s var(--ease);
     }
 
     .subtitle {
@@ -273,24 +284,16 @@
       letter-spacing: .18em;
       text-transform: uppercase;
       color: var(--ink-dim);
-      margin: 0;
-      max-width: 52rem;
       line-height: 1.45;
-      transition: opacity .45s var(--ease), transform .45s var(--ease), color .5s var(--ease);
+      opacity: 1;
     }
     body.is-hot .subtitle {
       color: rgba(255,255,255,0.78);
       opacity: 0;
-      transform: translateY(8px);
-      pointer-events: none;
+      transform: translateY(6px);
     }
 
     .caption {
-      position: absolute;
-      left: 50%;
-      transform: translate(-50%, 8px);
-      bottom: 0.25rem;
-      margin: 0;
       font-family: "Fraunces", serif;
       font-style: italic;
       font-weight: 500;
@@ -298,27 +301,29 @@
       font-size: clamp(17px, 1.9vw, 24px);
       color: #fff;
       letter-spacing: 0;
-      line-height: 1.35;
-      max-width: min(90vw, 42rem);
+      line-height: 1.4;
       opacity: 0;
-      transition: opacity .5s var(--ease) .05s, transform .55s var(--ease) .05s;
+      transform: translateY(8px);
       text-wrap: balance;
-      pointer-events: none;
       text-shadow:
         0 1px 2px rgba(0,0,0,0.6),
         0 2px 18px rgba(0,0,0,0.5);
-    }
-    body.is-hot .caption.is-visible {
-      opacity: 1;
-      transform: translate(-50%, 0);
+      padding-top: 22px; /* spazio per la linea sopra */
+      position: relative;
     }
     .caption::before {
       content: "";
-      display: block;
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
       width: 36px;
       height: 1px;
       background: rgba(255,255,255,0.55);
-      margin: 0 auto 14px auto;
+    }
+    body.is-hot .caption.is-visible {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     /* ---------- Top-right stack: LinkedIn + location ---------- */
@@ -412,10 +417,8 @@
         padding:
           calc(4.5rem + var(--safe-t))
           calc(var(--gutter) + var(--safe-r))
-          calc(2rem + var(--safe-b))
+          calc(11rem + var(--safe-b))
           calc(var(--gutter) + var(--safe-l));
-        gap: 1rem;
-        grid-template-rows: 1fr auto;
       }
       .portfolio {
         font-size: 10px;
@@ -423,11 +426,6 @@
       }
       .portfolio em { font-size: 1.1em; }
 
-      .hero {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
       .name {
         font-size: clamp(2.6rem, 19vw, 6rem);
         line-height: .9;
@@ -440,12 +438,14 @@
       .caption {
         font-size: 19px;
         line-height: 1.4;
-        bottom: 1.25rem;
-        max-width: 92vw;
       }
+      /* Below sta più in alto rispetto alla toolbar del browser mobile */
       .below {
-        min-height: 7rem;
-        padding-bottom: 2.8rem;
+        bottom: calc(4.5rem + var(--safe-b));
+      }
+      /* Email appoggiata al fondo con solo safe-area */
+      .corner.bl {
+        bottom: calc(1rem + var(--safe-b));
       }
       .tr-stack .locus {
         font-size: 9px;
@@ -456,8 +456,8 @@
       /* Hit area leggermente ingrandita per tap comodo */
       .name .ltr { padding: 0 1px; }
 
-      /* Scrim leggermente più ampio su mobile per coprire caption + sottotesto area */
-      .scrim { height: 45vh; }
+      /* Scrim leggermente più ampio su mobile */
+      .scrim { height: 50vh; }
     }
 
     @media (max-width: 420px) {
@@ -515,14 +515,15 @@
         </span>
       </h1>
     </section>
-
-    <div class="below">
-      <p class="subtitle">
-        Account e Project Manager · Creative Strategist · Cofondatore di Eskimo Creative Agency
-      </p>
-      <p class="caption" id="caption" aria-live="polite"></p>
-    </div>
   </main>
+
+  <!-- Fascia inferiore: subtitle + caption. Fixed, sempre sopra la toolbar del browser -->
+  <div class="below">
+    <p class="subtitle">
+      Account e Project Manager · Creative Strategist · Cofondatore di Eskimo Creative Agency
+    </p>
+    <p class="caption" id="caption" aria-live="polite"></p>
+  </div>
 
   <!-- Top-left: Portfolio -->
   <div class="tl-stack">
