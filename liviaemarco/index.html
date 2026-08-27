@@ -236,6 +236,8 @@ body{
   text-align:center;margin-top:22px;font-family:"Roboto Mono",monospace;
   font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:#8c5566;
 }
+.sync{display:block;margin-top:5px;letter-spacing:.12em}
+.sync.attesa{color:var(--rosso);font-weight:700}
 
 .avviso{
   position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(140%);
@@ -280,10 +282,11 @@ body{
   <section class="regole">
     <h2>Come si gioca</h2>
     <ol>
+      <li>Scrivi il tuo nome in alto: senza nome il giudice non sa a chi assegnare i punti.</li>
       <li>Spunta una prova solo dopo averla <b>documentata</b> nel gruppo. Senza foto o video non vale.</li>
       <li>Le prove con il <b>lucchetto</b> le prende chi arriva primo. Le altre sono per tutti.</li>
       <li>Durante la cerimonia si sta buoni. Il gioco parte quando si esce.</li>
-      <li>I <b>pronostici</b> si sigillano prima della cerimonia. Subito dopo il sigillo: screenshot della schermata e invio al giudice in privato, più il testo incollato nel gruppo. Senza screenshot al giudice i pronostici non valgono.</li>
+      <li>I <b>pronostici</b> si sigillano prima della cerimonia. Una volta sigillati arrivano al giudice da soli e non si toccano più.</li>
       <li>Il giudice non giocante convalida tutto. La sua parola è legge.</li>
       <li>Chi mette in imbarazzo gli sposi o intralcia il fotografo perde la prova e pure la faccia.</li>
     </ol>
@@ -300,12 +303,24 @@ body{
     </div>
   </section>
 
-  <p class="firma">Schedina n. 001 · valida solo il giorno del matrimonio</p>
+  <p class="firma">
+    Schedina n. 001 · valida solo il giorno del matrimonio
+    <span class="sync" id="statoSync"></span>
+  </p>
 </div>
 
 <div class="avviso" id="avviso" role="status" aria-live="polite"></div>
 
 <script>
+/* ============================================================
+   COLLEGAMENTO AL FOGLIO GOOGLE
+   Incolla qui sotto, fra le virgolette, l'URL che finisce con /exec
+   ottenuto quando pubblichi l'Apps Script come app web.
+   Se lasci la stringa vuota il sito funziona lo stesso, ma salva
+   solo sul telefono di chi gioca, come prima.
+   ============================================================ */
+const URL_SCRIPT = "https://script.google.com/macros/s/AKfycbyhrxnyxyyBJkWTgIvWNHaF8-9VK8pBsJnEi0Ods4B7O8iEGEOoJiIxBBaOIWpDB-iw3Q/exec";
+
 const SEZIONI = [
   { titolo:"Prove facili", range:"3 – 30 punti", prove:[
     {t:"Selfie con entrambi gli sposi nella stessa foto", p:10},
@@ -383,7 +398,7 @@ SEZIONI.forEach((s, si) => {
 html += `<section class="sezione">
   <div class="intestazione"><h2>Pronostici</h2><span class="range">30 punti l'uno</span></div>
   <div class="lista">
-    <div class="pronostico"><span class="nota" style="margin:0">Compila tutti e sei <b>prima della cerimonia</b>, poi premi Sigilla: i campi si bloccano e il testo finisce negli appunti. Poi fai lo <b>screenshot di questa schermata e mandalo al giudice</b> in privato. Senza screenshot al giudice, i pronostici non contano.</span></div>`;
+    <div class="pronostico"><span class="nota" style="margin:0">Compila tutti e sei <b>prima della cerimonia</b>, poi premi Sigilla: i campi si bloccano e i pronostici partono verso il giudice con l'ora esatta. Da quel momento non si cambiano più.</span></div>`;
 PRONOSTICI.forEach((q, i) => {
   html += `<div class="pronostico">
     <label for="pron${i}">${q}</label>
@@ -482,7 +497,7 @@ function chiudiSigillo(quando){
   sigilloEl.classList.add("chiuso");
   campiPron().forEach(c => { c.readOnly = true; c.closest(".pronostico").classList.add("chiuso"); });
   document.getElementById("testoSigillo").innerHTML =
-    "Chiusi il " + quando + "<br><b>Ora fai lo screenshot e mandalo al giudice.</b><br>Da qui in poi non si toccano più.";
+    "Chiusi il " + quando + "<br><b>Il giudice li ha ricevuti.</b><br>Da qui in poi non si toccano più.";
 }
 
 document.getElementById("btnSigilla").addEventListener("click", () => {
@@ -496,14 +511,26 @@ document.getElementById("btnSigilla").addEventListener("click", () => {
   }
   const nome = document.getElementById("nome").value.trim() || "Un giocatore anonimo";
   const ora = new Date().toLocaleString("it-IT", {day:"2-digit", month:"2-digit", hour:"2-digit", minute:"2-digit"});
+  const risposte = campi.map(c => c.value.trim());
   const testo = "PRONOSTICI SIGILLATI · Fanta Matrimonio\n"
     + nome + " · " + ora + "\n\n"
-    + PRONOSTICI.map((q, i) => q + ": " + campi[i].value.trim()).join("\n")
-    + "\n\nSigillati prima della cerimonia. Screenshot già inviato al giudice. Non si cambiano più.";
+    + PRONOSTICI.map((q, i) => q + ": " + risposte[i]).join("\n")
+    + "\n\nSigillati prima della cerimonia. Non si cambiano più.";
   chiudiSigillo(ora);
   sigilloStato = ora;
-  copia(testo, "Sigillato. Ora screenshot di questa schermata al giudice.");
+  copia(testo, "Sigillato. Copia incollata negli appunti.");
   salva();
+
+  if(collegato()){
+    manda({ tipo:"pronostici", id:ID_GIOCATORE, nome:nome, ora:ora,
+            domande:PRONOSTICI, risposte:risposte })
+      .then(r => {
+        if(r && r.ok) avvisa("Sigillato e arrivato al giudice.");
+        else if(r && r.motivo === "gia_sigillato") avvisa("Il giudice aveva già i tuoi pronostici.");
+        else avvisa("Sigillato. Mandane anche uno screenshot al giudice.");
+      })
+      .catch(() => avvisa("Sigillato, ma la rete non va: manda lo screenshot al giudice."));
+  }
 });
 
 document.getElementById("azzera").addEventListener("click", () => {
@@ -520,6 +547,92 @@ document.getElementById("azzera").addEventListener("click", () => {
 /* ---- memoria del telefono ---- */
 const CHIAVE = "fantamatrimonio-livia-marco";
 let sigilloStato = null;
+
+/* ---- invio al foglio Google ---- */
+const CHIAVE_ID = "fantamatrimonio-id";
+const statoSyncEl = document.getElementById("statoSync");
+
+const ID_GIOCATORE = (() => {
+  let v = null;
+  try { v = localStorage.getItem(CHIAVE_ID); } catch(e){}
+  if(!v){
+    v = "g" + Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+    try { localStorage.setItem(CHIAVE_ID, v); } catch(e){}
+  }
+  return v;
+})();
+
+const collegato = () => /^https:\/\//.test(URL_SCRIPT);
+
+function segnaStato(testo, attesa){
+  if(!collegato()){ statoSyncEl.textContent = ""; return; }
+  statoSyncEl.textContent = testo;
+  statoSyncEl.classList.toggle("attesa", !!attesa);
+}
+
+function manda(dati){
+  return fetch(URL_SCRIPT, {
+    method: "POST",
+    headers: { "Content-Type": "text/plain;charset=utf-8" },
+    body: JSON.stringify(dati)
+  }).then(r => r.json());
+}
+
+function datiPunteggio(){
+  const { somma, fuori } = calcola(false);
+  const prove = [], malus = [];
+  caselle().forEach(c => {
+    if(!c.checked) return;
+    const riga = c.closest(".prova");
+    if(!riga) return;
+    const titolo = riga.querySelector(".testo").childNodes[0].textContent.trim();
+    (Number(c.dataset.punti) < 0 ? malus : prove).push(titolo);
+  });
+  const indovinati = PRONOSTICI.filter((_, i) => document.getElementById("ok" + i).checked).length;
+  return {
+    tipo: "punteggio",
+    id: ID_GIOCATORE,
+    nome: document.getElementById("nome").value.trim(),
+    punti: somma,
+    squalificato: fuori,
+    nProve: prove.length,
+    nMalus: malus.length,
+    indovinati: indovinati,
+    prove: prove.join(" · "),
+    malus: malus.join(" · ")
+  };
+}
+
+let timerInvio = null, tentativi = 0;
+
+function inviaPunteggio(){
+  if(!collegato()) return;
+  segnaStato("Invio in corso…", true);
+  manda(datiPunteggio())
+    .then(r => {
+      if(!r || !r.ok) throw new Error("rifiutato");
+      tentativi = 0;
+      segnaStato("Salvato nel foglio · " +
+        new Date().toLocaleTimeString("it-IT", {hour:"2-digit", minute:"2-digit"}), false);
+    })
+    .catch(() => {
+      tentativi++;
+      segnaStato("Non salvato, riprovo…", true);
+      if(tentativi < 12) setTimeout(inviaPunteggio, Math.min(30000, 4000 * tentativi));
+      else segnaStato("Rete assente. Riapri la pagina quando torna il campo.", true);
+    });
+}
+
+function programmaInvio(){
+  if(!collegato()) return;
+  tentativi = 0;
+  segnaStato("Da salvare…", true);
+  clearTimeout(timerInvio);
+  timerInvio = setTimeout(inviaPunteggio, 1500);
+}
+
+window.addEventListener("online", () => programmaInvio());
+
 function salva(){
   const stato = {
     nome: document.getElementById("nome").value,
@@ -528,6 +641,7 @@ function salva(){
     sigillo: sigilloStato,
   };
   try { localStorage.setItem(CHIAVE, JSON.stringify(stato)); } catch(e){}
+  programmaInvio();
 }
 function carica(){
   let grezzo = null;
@@ -556,3 +670,4 @@ calcola(false);
 
 </body>
 </html>
+
