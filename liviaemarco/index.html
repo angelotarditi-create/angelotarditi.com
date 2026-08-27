@@ -10,7 +10,13 @@
 <meta property="og:title" content="Fanta Matrimonio · Livia ♥ Marco">
 <meta property="og:description" content="Apri la tua schedina, spunta le prove, sigilla i pronostici. Gli ultimi tre pagano.">
 <meta property="og:url" content="https://angelotarditi.com/liviaemarco">
-<meta name="twitter:card" content="summary">
+<meta property="og:image" content="https://angelotarditi.com/liviaemarco/anteprima.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Fanta Matrimonio, Livia e Marco: il regolamento ufficiale">
+<meta property="og:locale" content="it_IT">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://angelotarditi.com/liviaemarco/anteprima.png">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23F7B5C4'/><text y='.9em' x='50' text-anchor='middle' font-size='72'>♥</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -228,12 +234,12 @@ body{
 /* ---------- fondo ---------- */
 .premio{
   margin-top:26px;background:var(--inchiostro);color:var(--carta);
-  border:var(--bordo);padding:22px 20px;text-align:center;
+  border:var(--bordo);border-top:none;padding:22px 20px;text-align:center;
 }
 .premio h2{font-family:"Anton",Impact,sans-serif;font-weight:400;text-transform:uppercase;font-size:26px;margin:0 0 8px}
 .premio p{margin:0 auto;max-width:44ch;font-size:14.5px;color:#e8e2f0}
 
-.azioni{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
+.azioni{display:flex;gap:10px;margin-top:26px;flex-wrap:wrap}
 .bottone{
   flex:1;min-width:150px;font-family:"Roboto Mono",monospace;font-weight:700;
   font-size:13px;letter-spacing:.12em;text-transform:uppercase;
@@ -362,16 +368,16 @@ body.bloccata .cancello{display:grid}
     </ol>
   </section>
 
-  <div id="sezioni"></div>
-
   <section class="premio">
     <h2>Cosa si vince</h2>
     <p>Il primo in classifica sceglie il ristorante della prossima rimpatriata. Gli ultimi tre pagano il conto. Gli sposi mangiano gratis a vita.</p>
-    <div class="azioni">
-      <button class="bottone bottone--principale" id="condividi">Copia il punteggio</button>
-      <button class="bottone" id="azzera">Ricomincia da zero</button>
-    </div>
   </section>
+
+  <div id="sezioni"></div>
+
+  <div class="azioni">
+    <button class="bottone" id="azzera">Ricomincia da zero</button>
+  </div>
 
   <p class="firma">
     Schedina n. 001 · valida solo il giorno del matrimonio<br>
@@ -600,19 +606,6 @@ function copia(testo, ok){
     navigator.clipboard.writeText(testo).then(() => avvisa(ok)).catch(fallback);
   } else fallback();
 }
-
-/* ---- condivisione ---- */
-document.getElementById("condividi").addEventListener("click", () => {
-  const nome = document.getElementById("nome").value.trim() || "Un giocatore anonimo";
-  const { somma, fuori } = calcola(false);
-  const fatte = caselle().filter(c => c.checked && Number(c.dataset.punti) > 0)
-    .map(c => c.closest(".prova") ? c.closest(".prova").querySelector(".testo").childNodes[0].textContent.trim()
-                                 : "Pronostico indovinato");
-  let testo = `FANTA MATRIMONIO · Livia ♥ Marco\n${nome}: ${fuori ? "SQUALIFICATO" : somma + " punti"}\n`;
-  if(fatte.length) testo += "\n" + fatte.map(f => "✔ " + f).join("\n");
-  testo += "\n\nBattetemi, se ci riuscite.";
-  copia(testo, "Punteggio copiato. Incollalo nel gruppo.");
-});
 
 /* ---- sigillo dei pronostici ---- */
 const sigilloEl = document.getElementById("sigillo");
