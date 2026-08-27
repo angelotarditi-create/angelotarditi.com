@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fanta Matrimonio · Livia &amp; Marco</title>
+<meta name="description" content="La schedina ufficiale del matrimonio di Livia e Marco. Prove, malus e pronostici. Vince chi osa.">
+<meta name="theme-color" content="#F7B5C4">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Fanta Matrimonio · Livia ♥ Marco">
+<meta property="og:description" content="Apri la tua schedina, spunta le prove, sigilla i pronostici. Gli ultimi tre pagano.">
+<meta property="og:url" content="https://angelotarditi.com/liviaemarco">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23F7B5C4'/><text y='.9em' x='50' text-anchor='middle' font-size='72'>♥</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:ital,wght@0,400;0,600;0,700;1,400&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --rosa:#F7B5C4;
+  --rosa-scuro:#D9788F;
+  --carta:#FFFDF7;
+  --inchiostro:#23202B;
+  --oro:#B0842A;
+  --rosso:#C8102E;
+  --grigio:#6E6878;
+  --bordo:2px solid var(--inchiostro);
+}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--rosa);
+  background-image:radial-gradient(var(--rosa-scuro) 1px, transparent 1.2px);
+  background-size:9px 9px;
+  color:var(--inchiostro);
+  font-family:"Archivo",system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-size:16px;
+  line-height:1.5;
+}
+
+.wrap{max-width:820px;margin:0 auto;padding:0 14px 90px}
+
+/* ---------- ticker ---------- */
+.ticker{
+  background:var(--inchiostro);color:var(--rosa);
+  font-family:"Roboto Mono",monospace;font-size:11px;letter-spacing:.14em;
+  text-transform:uppercase;overflow:hidden;white-space:nowrap;padding:7px 0;
+}
+.ticker span{display:inline-block;padding-left:100%;animation:scorri 26s linear infinite}
+@keyframes scorri{to{transform:translateX(-100%)}}
+
+/* ---------- testata ---------- */
+.testata{
+  background:var(--carta);border:var(--bordo);border-top:none;
+  padding:26px 20px 20px;text-align:center;position:relative;
+}
+.occhiello{
+  font-family:"Roboto Mono",monospace;font-size:11px;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--rosso);margin:0 0 6px;
+}
+.titolone{
+  font-family:"Anton",Impact,sans-serif;font-weight:400;
+  font-size:clamp(44px,13vw,104px);line-height:.82;letter-spacing:-.01em;
+  text-transform:uppercase;margin:0;
+}
+.titolone em{font-style:normal;display:block;color:var(--rosa-scuro);-webkit-text-stroke:1.5px var(--inchiostro)}
+.sposi{
+  font-family:"Archivo",sans-serif;font-style:italic;font-size:clamp(17px,4.4vw,25px);
+  margin:14px 0 0;
+}
+.sposi b{font-style:normal;font-weight:700}
+.cuore{color:var(--rosso);font-style:normal}
+.sottotesta{
+  font-family:"Roboto Mono",monospace;font-size:11px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--grigio);margin:10px 0 0;
+}
+
+/* ---------- cartellino ---------- */
+.cartellino{
+  position:sticky;top:0;z-index:40;
+  background:var(--inchiostro);color:var(--carta);
+  border:var(--bordo);border-top:none;
+  display:flex;align-items:center;gap:12px;padding:10px 14px;
+}
+.cartellino input{
+  flex:1;min-width:0;background:transparent;border:none;border-bottom:1.5px dashed var(--rosa);
+  color:var(--carta);font-family:"Archivo",sans-serif;font-size:15px;padding:4px 2px;
+}
+.cartellino input::placeholder{color:#9d95ab}
+.cartellino input:focus{outline:none;border-bottom-color:var(--carta)}
+.totale{text-align:right;line-height:1;flex:none}
+.totale .num{
+  font-family:"Roboto Mono",monospace;font-weight:700;
+  font-size:30px;display:block;font-variant-numeric:tabular-nums;
+}
+.totale .lab{font-family:"Roboto Mono",monospace;font-size:9px;letter-spacing:.2em;color:var(--rosa)}
+.pulsa{animation:pulsa .4s ease}
+@keyframes pulsa{0%{transform:scale(1)}45%{transform:scale(1.22)}100%{transform:scale(1)}}
+
+/* ---------- regole ---------- */
+.regole{background:var(--carta);border:var(--bordo);border-top:none;padding:18px 20px 20px}
+.regole h2{
+  font-family:"Roboto Mono",monospace;font-size:11px;letter-spacing:.2em;
+  text-transform:uppercase;margin:0 0 10px;color:var(--rosso);
+}
+.regole ol{margin:0;padding-left:20px;font-size:14.5px}
+.regole li{margin-bottom:6px}
+.regole li::marker{font-weight:700}
+
+/* ---------- sezioni ---------- */
+.sezione{margin-top:26px}
+.intestazione{
+  display:flex;align-items:baseline;gap:10px;
+  background:var(--inchiostro);color:var(--carta);
+  padding:9px 14px;border:var(--bordo);
+}
+.intestazione h2{
+  font-family:"Anton",Impact,sans-serif;font-weight:400;text-transform:uppercase;
+  font-size:clamp(20px,5.5vw,30px);margin:0;letter-spacing:.01em;line-height:1;
+}
+.intestazione .range{
+  margin-left:auto;font-family:"Roboto Mono",monospace;font-size:11px;
+  color:var(--rosa);white-space:nowrap;
+}
+
+.lista{background:var(--carta);border:var(--bordo);border-top:none}
+
+.prova{
+  display:flex;gap:12px;align-items:flex-start;
+  padding:13px 14px;border-bottom:1px dashed #d8d2c4;
+  cursor:pointer;position:relative;
+}
+.prova:last-child{border-bottom:none}
+.prova:hover{background:#fff5ea}
+.prova input{
+  appearance:none;-webkit-appearance:none;flex:none;
+  width:23px;height:23px;margin:1px 0 0;border:var(--bordo);border-radius:3px;
+  background:var(--carta);cursor:pointer;position:relative;
+}
+.prova input:checked{background:var(--inchiostro)}
+.prova input:checked::after{
+  content:"✓";position:absolute;inset:0;color:var(--rosa);
+  font-size:16px;font-weight:700;display:grid;place-items:center;
+}
+.prova input:focus-visible{outline:3px solid var(--rosso);outline-offset:2px}
+.testo{flex:1;min-width:0;font-size:15px}
+.punti{
+  flex:none;font-family:"Roboto Mono",monospace;font-weight:700;font-size:15px;
+  border:var(--bordo);border-radius:999px;padding:2px 9px;background:var(--rosa);
+  white-space:nowrap;
+}
+.lista--malus .punti{background:var(--rosso);color:var(--carta);border-color:var(--rosso)}
+.nota{display:block;font-size:12.5px;color:var(--grigio);margin-top:2px}
+.lucchetto{
+  font-family:"Roboto Mono",monospace;font-size:10px;letter-spacing:.1em;
+  border:1.5px solid var(--oro);color:var(--oro);border-radius:3px;
+  padding:1px 5px;margin-left:6px;text-transform:uppercase;white-space:nowrap;
+}
+
+.prova.fatta .testo{opacity:.55;text-decoration:line-through;text-decoration-thickness:1px}
+.prova.fatta::after{
+  content:"FATTO";position:absolute;right:56px;top:50%;
+  font-family:"Anton",Impact,sans-serif;font-size:26px;letter-spacing:.06em;
+  color:rgba(200,16,46,.42);border:3px solid rgba(200,16,46,.42);border-radius:5px;
+  padding:0 7px;pointer-events:none;
+  transform:translateY(-50%) rotate(-11deg);animation:timbro .28s ease-out;
+}
+@keyframes timbro{from{transform:translateY(-50%) rotate(-11deg) scale(2.4);opacity:0}
+                  to{transform:translateY(-50%) rotate(-11deg) scale(1);opacity:1}}
+
+/* ---------- pronostici ---------- */
+.pronostico{padding:13px 14px;border-bottom:1px dashed #d8d2c4}
+.pronostico:last-child{border-bottom:none}
+.pronostico > label{display:block;font-size:15px;margin-bottom:7px}
+.riga{display:flex;gap:10px;align-items:center}
+.riga input[type=text]{
+  flex:1;min-width:0;background:#fff5ea;border:var(--bordo);border-radius:4px;
+  padding:8px 10px;font-family:"Archivo",sans-serif;font-size:15px;color:var(--inchiostro);
+}
+.riga input[type=text]:focus{outline:none;background:var(--rosa)}
+.centro{
+  flex:none;display:flex;align-items:center;gap:6px;cursor:pointer;
+  font-family:"Roboto Mono",monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+}
+.centro input{
+  appearance:none;-webkit-appearance:none;width:23px;height:23px;margin:0;
+  border:var(--bordo);border-radius:3px;background:var(--carta);cursor:pointer;position:relative;
+}
+.centro input:checked{background:var(--oro);border-color:var(--oro)}
+.centro input:checked::after{content:"✓";position:absolute;inset:0;color:#fff;display:grid;place-items:center;font-weight:700}
+.centro input:focus-visible{outline:3px solid var(--rosso);outline-offset:2px}
+
+/* ---------- sigillo ---------- */
+.sigillo{padding:16px 14px;background:#fff5ea;border-top:1px dashed #d8d2c4}
+.sigillo .bottone{width:100%;flex:none}
+.timbrato{
+  display:none;align-items:center;gap:12px;
+  font-family:"Roboto Mono",monospace;font-size:11.5px;line-height:1.45;
+}
+.sigillo.chiuso .bottone{display:none}
+.sigillo.chiuso .timbrato{display:flex}
+.ceralacca{
+  flex:none;width:52px;height:52px;border-radius:50%;
+  background:var(--rosso);color:#fff;display:grid;place-items:center;text-align:center;
+  font-family:"Anton",Impact,sans-serif;font-size:10px;line-height:1.05;letter-spacing:.04em;
+  transform:rotate(-8deg);box-shadow:0 2px 0 rgba(0,0,0,.25);
+}
+.pronostico.chiuso input[type=text]{
+  background:transparent;border-style:dotted;color:var(--grigio);cursor:not-allowed;
+}
+
+/* ---------- fondo ---------- */
+.premio{
+  margin-top:26px;background:var(--inchiostro);color:var(--carta);
+  border:var(--bordo);padding:22px 20px;text-align:center;
+}
+.premio h2{font-family:"Anton",Impact,sans-serif;font-weight:400;text-transform:uppercase;font-size:26px;margin:0 0 8px}
+.premio p{margin:0 auto;max-width:44ch;font-size:14.5px;color:#e8e2f0}
+
+.azioni{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
+.bottone{
+  flex:1;min-width:150px;font-family:"Roboto Mono",monospace;font-weight:700;
+  font-size:13px;letter-spacing:.12em;text-transform:uppercase;
+  padding:14px 12px;border:var(--bordo);border-radius:4px;cursor:pointer;
+  background:var(--carta);color:var(--inchiostro);
+}
+.bottone:hover{background:var(--rosa)}
+.bottone:focus-visible{outline:3px solid var(--rosso);outline-offset:2px}
+.bottone--principale{background:var(--rosso);color:#fff;border-color:var(--inchiostro)}
+.bottone--principale:hover{background:#a70d26}
+
+.firma{
+  text-align:center;margin-top:22px;font-family:"Roboto Mono",monospace;
+  font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:#8c5566;
+}
+
+.avviso{
+  position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(140%);
+  background:var(--inchiostro);color:var(--carta);border:2px solid var(--rosa);
+  padding:11px 20px;border-radius:999px;font-family:"Roboto Mono",monospace;
+  font-size:12px;z-index:60;transition:transform .3s ease;max-width:90vw;text-align:center;
+}
+.avviso.su{transform:translateX(-50%) translateY(0)}
+
+@media (max-width:520px){
+  .prova.fatta::after{font-size:20px;right:52px}
+  .riga{flex-wrap:wrap}
+  .centro{width:100%}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none !important;transition:none !important}
+  .ticker span{padding-left:0}
+}
+</style>
+</head>
+<body>
+
+<div class="ticker"><span>Livia &amp; Marco · vietato vestirsi di bianco · il bouquet vale 60 punti · niente foto durante la cerimonia · la zia che canta è imprevedibile · chi non balla non fa punti · Livia &amp; Marco · l'ultimo in classifica paga la pizza · il giudice ha sempre ragione ·</span></div>
+
+<div class="wrap">
+
+  <header class="testata">
+    <p class="occhiello">Regolamento ufficiale · edizione unica</p>
+    <h1 class="titolone">Fanta<em>Matrimonio</em></h1>
+    <p class="sposi"><b>Livia</b> <span class="cuore">♥</span> <b>Marco</b></p>
+    <p class="sottotesta">Una schedina · Un giorno solo · Nessuna pietà</p>
+  </header>
+
+  <div class="cartellino">
+    <input id="nome" type="text" placeholder="Il tuo nome, giocatore" aria-label="Il tuo nome">
+    <div class="totale">
+      <span class="num" id="totale">0</span>
+      <span class="lab">punti</span>
+    </div>
+  </div>
+
+  <section class="regole">
+    <h2>Come si gioca</h2>
+    <ol>
+      <li>Spunta una prova solo dopo averla <b>documentata</b> nel gruppo. Senza foto o video non vale.</li>
+      <li>Le prove con il <b>lucchetto</b> le prende chi arriva primo. Le altre sono per tutti.</li>
+      <li>Durante la cerimonia si sta buoni. Il gioco parte quando si esce.</li>
+      <li>I <b>pronostici</b> si sigillano prima della cerimonia. Subito dopo il sigillo: screenshot della schermata e invio al giudice in privato, più il testo incollato nel gruppo. Senza screenshot al giudice i pronostici non valgono.</li>
+      <li>Il giudice non giocante convalida tutto. La sua parola è legge.</li>
+      <li>Chi mette in imbarazzo gli sposi o intralcia il fotografo perde la prova e pure la faccia.</li>
+    </ol>
+  </section>
+
+  <div id="sezioni"></div>
+
+  <section class="premio">
+    <h2>Cosa si vince</h2>
+    <p>Il primo in classifica sceglie il ristorante della prossima rimpatriata. Gli ultimi tre pagano il conto. Gli sposi mangiano gratis a vita.</p>
+    <div class="azioni">
+      <button class="bottone bottone--principale" id="condividi">Copia il punteggio</button>
+      <button class="bottone" id="azzera">Ricomincia da zero</button>
+    </div>
+  </section>
+
+  <p class="firma">Schedina n. 001 · valida solo il giorno del matrimonio</p>
+</div>
+
+<div class="avviso" id="avviso" role="status" aria-live="polite"></div>
+
+<script>
+const SEZIONI = [
+  { titolo:"Prove facili", range:"3 – 30 punti", prove:[
+    {t:"Selfie con entrambi gli sposi nella stessa foto", p:10},
+    {t:"Farti chiedere \"e tu quando ti sposi?\"", p:15, n:"Cinque punti a botta, massimo tre volte"},
+    {t:"Ballare con un invitato over 70", p:15},
+    {t:"Partecipare al trenino dall'inizio alla fine", p:10},
+    {t:"Mangiare tutte le portate senza saltarne una", p:15},
+    {t:"Foto del tuo tavolo al completo, tutti nella stessa posa", p:10},
+    {t:"Farti offrire un drink da qualcuno che non conoscevi stamattina", p:10},
+    {t:"Fotografare il momento esatto in cui Marco si toglie la cravatta", p:10, lock:true},
+    {t:"Scoprire chi è l'invitato arrivato da più lontano", p:15},
+    {t:"Fare baffalo a un invitato", p:30, n:"Dieci punti a testa, massimo tre vittime"},
+    {t:"Mano sul cuore ogni volta che qualcuno nomina Biella", p:3},
+    {t:"Selfie con mamma e papà di Livia", p:20},
+    {t:"Chiedere al cugino di Marco che fine hanno fatto le nostre foto del suo diciottesimo", p:30},
+  ]},
+  { titolo:"Prove medie", range:"20 – 35 punti", prove:[
+    {t:"Farti mettere in posa dal fotografo ufficiale", p:20},
+    {t:"Convincere il DJ a mettere una canzone scelta da te", p:25, lock:true},
+    {t:"Foto con il celebrante", p:25},
+    {t:"Farti raccontare da tre persone diverse come si sono conosciuti", p:20, n:"Se le versioni non coincidono, il giudice raddoppia"},
+    {t:"Prendere il microfono e dire qualcosa davanti a tutti", p:30},
+    {t:"Far ballare un parente che aveva dichiarato \"io non ballo\"", p:25},
+    {t:"Foto di gruppo con tutti i testimoni insieme", p:30},
+    {t:"Riempire una pagina del guestbook con un disegno decente", p:20},
+  ]},
+  { titolo:"Prove difficili", range:"40 – 70 punti", prove:[
+    {t:"Prendere il bouquet", p:60, lock:true},
+    {t:"Prendere la giarrettiera", p:50, lock:true},
+    {t:"Ballare da solo in pista per trenta secondi mentre tutti guardano", p:40},
+    {t:"Farti dedicare una canzone dagli sposi, ad alta voce", p:50},
+    {t:"Organizzare un flash mob con almeno otto invitati", p:70},
+    {t:"Portare a casa un centrotavola, con il permesso di chi di dovere", p:40},
+    {t:"Essere l'ultimo a lasciare la pista", p:50, lock:true},
+  ]},
+  { titolo:"Malus", range:"punti che se ne vanno", malus:true, prove:[
+    {t:"Telefono che suona durante la cerimonia", p:-40},
+    {t:"Rovesciare qualcosa addosso a un altro invitato", p:-20},
+    {t:"Chiedere agli sposi quando arriva il bambino", p:-15},
+    {t:"Farti rimproverare dalla madre della sposa", p:-30},
+    {t:"Arrivare in ritardo alla cerimonia", p:-15},
+    {t:"Piangere per motivi non romantici, tipo il terzo spritz", p:-25},
+    {t:"Presentarti vestito di bianco", p:-999, n:"Squalifica immediata, non si torna indietro"},
+  ]},
+];
+
+const PRONOSTICI = [
+  "Orario esatto del taglio della torta",
+  "Chi prende il bouquet",
+  "Chi piange per primo",
+  "Durata del discorso del testimone",
+  "Numero totale di brindisi",
+  "Prima canzone dopo il primo ballo",
+];
+const VALORE_PRONOSTICO = 30;
+
+const contenitore = document.getElementById("sezioni");
+let html = "";
+
+SEZIONI.forEach((s, si) => {
+  html += `<section class="sezione">
+    <div class="intestazione"><h2>${s.titolo}</h2><span class="range">${s.range}</span></div>
+    <div class="lista ${s.malus ? "lista--malus" : ""}">`;
+  s.prove.forEach((pr, pi) => {
+    const etichetta = pr.p === -999 ? "OUT" : (pr.p > 0 ? "+" + pr.p : pr.p);
+    html += `<label class="prova" for="p${si}_${pi}">
+      <input type="checkbox" id="p${si}_${pi}" data-punti="${pr.p}">
+      <span class="testo">${pr.t}${pr.lock ? '<span class="lucchetto">solo il primo</span>' : ""}${pr.n ? `<span class="nota">${pr.n}</span>` : ""}</span>
+      <span class="punti">${etichetta}</span>
+    </label>`;
+  });
+  html += `</div></section>`;
+});
+
+html += `<section class="sezione">
+  <div class="intestazione"><h2>Pronostici</h2><span class="range">30 punti l'uno</span></div>
+  <div class="lista">
+    <div class="pronostico"><span class="nota" style="margin:0">Compila tutti e sei <b>prima della cerimonia</b>, poi premi Sigilla: i campi si bloccano e il testo finisce negli appunti. Poi fai lo <b>screenshot di questa schermata e mandalo al giudice</b> in privato. Senza screenshot al giudice, i pronostici non contano.</span></div>`;
+PRONOSTICI.forEach((q, i) => {
+  html += `<div class="pronostico">
+    <label for="pron${i}">${q}</label>
+    <div class="riga">
+      <input type="text" id="pron${i}" placeholder="La tua previsione">
+      <label class="centro" for="ok${i}"><input type="checkbox" id="ok${i}" data-punti="${VALORE_PRONOSTICO}">Indovinato</label>
+    </div>
+  </div>`;
+});
+html += `<div class="sigillo" id="sigillo">
+    <button class="bottone bottone--principale" id="btnSigilla">Sigilla e manda al giudice</button>
+    <div class="timbrato">
+      <span class="ceralacca">SIGIL<br>LATO</span>
+      <span id="testoSigillo"></span>
+    </div>
+  </div>
+</div></section>`;
+
+contenitore.innerHTML = html;
+
+const totaleEl = document.getElementById("totale");
+const avvisoEl = document.getElementById("avviso");
+const caselle = () => [...document.querySelectorAll("input[type=checkbox]")];
+
+function calcola(animato){
+  let somma = 0, fuori = false;
+  caselle().forEach(c => {
+    if(!c.checked) return;
+    if(Number(c.dataset.punti) === -999){ fuori = true; return; }
+    somma += Number(c.dataset.punti);
+  });
+  totaleEl.textContent = fuori ? "OUT" : somma;
+  totaleEl.style.color = fuori ? "#F7B5C4" : "";
+  if(animato){
+    totaleEl.classList.remove("pulsa");
+    void totaleEl.offsetWidth;
+    totaleEl.classList.add("pulsa");
+  }
+  return { somma, fuori };
+}
+
+function avvisa(testo){
+  avvisoEl.textContent = testo;
+  avvisoEl.classList.add("su");
+  clearTimeout(avvisa.t);
+  avvisa.t = setTimeout(() => avvisoEl.classList.remove("su"), 2600);
+}
+
+const BATTUTE = ["Segnato.","Il giudice annuisce.","Punti incassati.","Bella mossa.","Messo agli atti."];
+
+document.addEventListener("change", e => {
+  const c = e.target;
+  if(c.type !== "checkbox") return;
+  const riga = c.closest(".prova");
+  if(riga) riga.classList.toggle("fatta", c.checked);
+  calcola(true);
+  if(c.checked && Number(c.dataset.punti) === -999) avvisa("Squalificato. Vestirsi di bianco non si perdona.");
+  else if(c.checked && Number(c.dataset.punti) < 0) avvisa("Ahia. Il giudice ha visto tutto.");
+  else if(c.checked) avvisa(BATTUTE[Math.floor(Math.random()*BATTUTE.length)]);
+  salva();
+});
+
+/* ---- copia negli appunti ---- */
+function copia(testo, ok){
+  const fallback = () => {
+    const a = document.createElement("textarea");
+    a.value = testo; a.style.position = "fixed"; a.style.opacity = "0";
+    document.body.appendChild(a); a.select();
+    try { document.execCommand("copy"); avvisa(ok); }
+    catch(err){ avvisa("Copia non riuscita, fai uno screenshot."); }
+    a.remove();
+  };
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(testo).then(() => avvisa(ok)).catch(fallback);
+  } else fallback();
+}
+
+/* ---- condivisione ---- */
+document.getElementById("condividi").addEventListener("click", () => {
+  const nome = document.getElementById("nome").value.trim() || "Un giocatore anonimo";
+  const { somma, fuori } = calcola(false);
+  const fatte = caselle().filter(c => c.checked && Number(c.dataset.punti) > 0)
+    .map(c => c.closest(".prova") ? c.closest(".prova").querySelector(".testo").childNodes[0].textContent.trim()
+                                 : "Pronostico indovinato");
+  let testo = `FANTA MATRIMONIO · Livia ♥ Marco\n${nome}: ${fuori ? "SQUALIFICATO" : somma + " punti"}\n`;
+  if(fatte.length) testo += "\n" + fatte.map(f => "✔ " + f).join("\n");
+  testo += "\n\nBattetemi, se ci riuscite.";
+  copia(testo, "Punteggio copiato. Incollalo nel gruppo.");
+});
+
+/* ---- sigillo dei pronostici ---- */
+const sigilloEl = document.getElementById("sigillo");
+const campiPron = () => PRONOSTICI.map((_, i) => document.getElementById("pron" + i));
+
+function chiudiSigillo(quando){
+  sigilloEl.classList.add("chiuso");
+  campiPron().forEach(c => { c.readOnly = true; c.closest(".pronostico").classList.add("chiuso"); });
+  document.getElementById("testoSigillo").innerHTML =
+    "Chiusi il " + quando + "<br><b>Ora fai lo screenshot e mandalo al giudice.</b><br>Da qui in poi non si toccano più.";
+}
+
+document.getElementById("btnSigilla").addEventListener("click", () => {
+  const campi = campiPron();
+  const vuoti = campi.filter(c => !c.value.trim()).length;
+  if(vuoti){
+    avvisa("Mancano " + vuoti + " pronostici. Si sigilla solo la scheda completa.");
+    const primo = campi.find(c => !c.value.trim());
+    primo.focus(); primo.scrollIntoView({block:"center", behavior:"smooth"});
+    return;
+  }
+  const nome = document.getElementById("nome").value.trim() || "Un giocatore anonimo";
+  const ora = new Date().toLocaleString("it-IT", {day:"2-digit", month:"2-digit", hour:"2-digit", minute:"2-digit"});
+  const testo = "PRONOSTICI SIGILLATI · Fanta Matrimonio\n"
+    + nome + " · " + ora + "\n\n"
+    + PRONOSTICI.map((q, i) => q + ": " + campi[i].value.trim()).join("\n")
+    + "\n\nSigillati prima della cerimonia. Screenshot già inviato al giudice. Non si cambiano più.";
+  chiudiSigillo(ora);
+  sigilloStato = ora;
+  copia(testo, "Sigillato. Ora screenshot di questa schermata al giudice.");
+  salva();
+});
+
+document.getElementById("azzera").addEventListener("click", () => {
+  caselle().forEach(c => { c.checked = false; const r = c.closest(".prova"); if(r) r.classList.remove("fatta"); });
+  document.querySelectorAll("input[type=text]").forEach(i => i.value = "");
+  sigilloStato = null;
+  sigilloEl.classList.remove("chiuso");
+  campiPron().forEach(c => { c.readOnly = false; c.closest(".pronostico").classList.remove("chiuso"); });
+  calcola(true);
+  avvisa("Schedina pulita. Si riparte.");
+  salva();
+});
+
+/* ---- memoria del telefono ---- */
+const CHIAVE = "fantamatrimonio-livia-marco";
+let sigilloStato = null;
+function salva(){
+  const stato = {
+    nome: document.getElementById("nome").value,
+    spunte: caselle().map(c => c.checked),
+    testi: [...document.querySelectorAll("input[type=text]")].map(i => i.value),
+    sigillo: sigilloStato,
+  };
+  try { localStorage.setItem(CHIAVE, JSON.stringify(stato)); } catch(e){}
+}
+function carica(){
+  let grezzo = null;
+  try { grezzo = localStorage.getItem(CHIAVE); } catch(e){ return; }
+  if(!grezzo) return;
+  try{
+    const s = JSON.parse(grezzo);
+    document.getElementById("nome").value = s.nome || "";
+    const cs = caselle();
+    (s.spunte || []).forEach((v, i) => {
+      if(!cs[i]) return;
+      cs[i].checked = v;
+      const r2 = cs[i].closest(".prova");
+      if(r2) r2.classList.toggle("fatta", v);
+    });
+    const ts = [...document.querySelectorAll("input[type=text]")];
+    (s.testi || []).forEach((v, i) => { if(ts[i]) ts[i].value = v; });
+    if(s.sigillo){ sigilloStato = s.sigillo; chiudiSigillo(s.sigillo); }
+    calcola(false);
+  } catch(e){}
+}
+document.addEventListener("input", e => { if(e.target.type === "text") salva(); });
+carica();
+calcola(false);
+</script>
+
+</body>
+</html>
